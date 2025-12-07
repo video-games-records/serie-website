@@ -1,0 +1,98 @@
+/* Trials Theme */
+:root {
+  --primary-color: #8B0000;
+  --secondary-color: #FF4500;
+  --accent-color: #FFD700;
+  --background-color: #0A0A0A;
+  --text-color: #FFFFFF;
+  --card-bg: #1A0A0A;
+  --border-color: #4A1A1A;
+}
+
+body {
+  background: linear-gradient(180deg, var(--background-color), #2A0A0A);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 2px solid var(--accent-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(139, 0, 0, 0.4);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.card {
+  border-radius: 6px;
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+  border: 2px solid var(--primary-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+  position: relative;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--background-color), var(--primary-color));
+  border-bottom: 3px solid var(--accent-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+  text-shadow: 0 0 12px var(--accent-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+  color: #000;
+}
+
+h1, h2, h3 {
+  text-shadow: 2px 2px 4px rgba(139, 0, 0, 0.8);
+}

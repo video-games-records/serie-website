@@ -1,0 +1,85 @@
+/* Forza Theme */
+:root {
+  --primary-color: #1E90FF;
+  --secondary-color: #FF4500;
+  --accent-color: #32CD32;
+  --background-color: #0F1419;
+  --text-color: #FFFFFF;
+  --card-bg: #1C2328;
+  --border-color: #30363D;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+}
+
+.navbar {
+  background: linear-gradient(135deg, #0F1419, #1C2328);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+h1, h2, h3 {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.racing-stripes {
+  position: relative;
+}
+
+.racing-stripes::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
