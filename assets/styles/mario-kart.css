@@ -1,0 +1,61 @@
+/* Mario Kart Theme */
+:root {
+  --primary-color: #FF6B6B;
+  --secondary-color: #4ECDC4;
+  --accent-color: #FFE66D;
+  --background-color: #F7F9FC;
+  --text-color: #2C3E50;
+  --card-bg: #FFFFFF;
+  --border-color: #E1E8ED;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+  background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}

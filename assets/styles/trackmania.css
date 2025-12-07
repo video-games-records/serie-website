@@ -1,0 +1,90 @@
+/* TrackMania Theme */
+:root {
+  --primary-color: #FF4500;
+  --secondary-color: #32CD32;
+  --accent-color: #FFFFFF;
+  --background-color: #0D1117;
+  --text-color: #FFFFFF;
+  --card-bg: #161B22;
+  --border-color: #21262D;
+}
+
+body {
+  background: linear-gradient(45deg, var(--background-color), #1C2128);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: black;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 2px solid var(--primary-color);
+  background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+}
+
+.card {
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.2);
+  border: 1px solid var(--primary-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--background-color), var(--primary-color));
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+  text-shadow: 0 0 8px var(--secondary-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+  color: #000;
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+  color: #000;
+}
+
+h1, h2, h3 {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}

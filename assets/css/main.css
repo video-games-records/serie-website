@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mario Kart Theme Variables */
+.theme-mario-kart {
+  --primary-color: #FF6B6B;
+  --secondary-color: #4ECDC4;
+  --accent-color: #FFE66D;
+  --background-color: #F7F9FC;
+  --text-color: #2C3E50;
+  --card-bg: #FFFFFF;
+  --border-color: #E1E8ED;
+  
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Forza Theme Variables */
+.theme-forza {
+  --primary-color: #1E90FF;
+  --secondary-color: #FF4500;
+  --accent-color: #32CD32;
+  --background-color: #0F1419;
+  --text-color: #FFFFFF;
+  --card-bg: #1C2328;
+  --border-color: #30363D;
+  
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply inline-block px-6 py-3 text-white font-semibold rounded-lg cursor-pointer transition-all duration-300;
+    background-color: var(--primary-color, #3B82F6);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+  
+  .card {
+    @apply rounded-lg shadow-lg border p-6;
+    background-color: var(--card-bg, white);
+    border-color: var(--border-color, #E5E7EB);
+  }
+  
+  .navbar {
+    background: linear-gradient(135deg, var(--primary-color, #3B82F6), var(--secondary-color, #10B981));
+  }
+  
+  .text-accent {
+    color: var(--accent-color, #F59E0B);
+  }
+  
+  .bg-primary {
+    background-color: var(--primary-color, #3B82F6);
+  }
+  
+  .bg-secondary {
+    background-color: var(--secondary-color, #10B981);
+  }
+  
+  .bg-accent {
+    background-color: var(--accent-color, #F59E0B);
+  }
+}
+
+/* Forza specific styles */
+.theme-forza h1, .theme-forza h2, .theme-forza h3 {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.theme-forza .racing-stripes {
+  position: relative;
+}
+
+.theme-forza .racing-stripes::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}

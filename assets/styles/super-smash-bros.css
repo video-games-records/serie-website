@@ -1,0 +1,78 @@
+/* Super Smash Bros Theme */
+:root {
+  --primary-color: #FF6B00;
+  --secondary-color: #0066FF;
+  --accent-color: #FFD700;
+  --background-color: #0A0A0F;
+  --text-color: #FFFFFF;
+  --card-bg: #1A1A2E;
+  --border-color: #333366;
+}
+
+body {
+  background: linear-gradient(135deg, var(--background-color), #16213E);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 2px solid var(--accent-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 107, 0, 0.5);
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--border-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--background-color), var(--primary-color));
+  border-bottom: 3px solid var(--accent-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+  text-shadow: 0 0 10px var(--accent-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+  color: #000;
+}

@@ -1,0 +1,102 @@
+/* Mario & Sonic at the Olympic Games Theme */
+:root {
+  --primary-color: #0080FF;
+  --secondary-color: #FFD700;
+  --accent-color: #FF1493;
+  --background-color: #F0F8FF;
+  --text-color: #1E3A8A;
+  --card-bg: #FFFFFF;
+  --border-color: #E5E7EB;
+}
+
+body {
+  background: linear-gradient(120deg, var(--background-color), #E0F0FF);
+  color: var(--text-color);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 24px;
+  color: white;
+  font-weight: 700;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 3px solid var(--secondary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(0, 128, 255, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 128, 255, 0.5);
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 3px solid var(--secondary-color);
+  padding: 24px;
+  background-color: var(--card-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, var(--accent-color), var(--primary-color));
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-bottom: 4px solid var(--accent-color);
+  color: white;
+}
+
+.text-accent {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+h1, h2, h3 {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
