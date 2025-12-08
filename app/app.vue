@@ -88,6 +88,9 @@
 </template>
 
 <script setup>
+import { useSerieStore } from '@stores/serieStore'
+
+const serieStore = useSerieStore()
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 
 function getGameTitle() {
@@ -100,20 +103,21 @@ onMounted(async () => {
   console.log('🌐 Host:', window.location.hostname)
   
   // Import config
-  const { getSerieFromHostname } = await import('../config/series')
+  const { getSerieFromHostname } = await import('@config/series')
   const detectedSerie = getSerieFromHostname(window.location.hostname)
   
   if (detectedSerie) {
     currentSerie.value = detectedSerie
+    serieStore.fetchGames(currentSerie.value.id)
     console.log(`🎮 Serie detected: ${detectedSerie.name} (ID: ${detectedSerie.id})`)
     
     // Load theme CSS
     try {
-      await import(`../assets/styles/${detectedSerie.theme}.css`)
+      await import(`@assets/styles/${detectedSerie.theme}.css`)
       console.log(`✅ Theme CSS loaded: ${detectedSerie.theme}`)
     } catch (error) {
       console.log('❌ Theme CSS failed, using fallback')
-      await import('../assets/styles/mario-kart.css')
+      await import('@assets/styles/mario-kart.css')
     }
   }
 })
