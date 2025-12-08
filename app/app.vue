@@ -38,23 +38,49 @@
           </div>
 
           <div class="card p-6">
-            <h4 class="text-2xl font-bold mb-4 text-accent">Statistiques</h4>
-            <p class="mb-4">Voici quelques statistiques de notre plateforme.</p>
-            <div class="space-y-3">
+            <h4 class="text-2xl font-bold mb-4 text-accent">Statistiques de la série</h4>
+            <div v-if="isSerieLoading" class="text-center py-4">
+              <p>Chargement des statistiques...</p>
+            </div>
+            <div v-else-if="serie" class="space-y-3">
               <div class="flex justify-between">
-                <span>Joueurs actifs:</span>
-                <span class="font-bold">2,547</span>
+                <span>Jeux:</span>
+                <span class="font-bold">{{ serie.nbGame || 0 }}</span>
               </div>
               <div class="flex justify-between">
-                <span>Records totaux:</span>
-                <span class="font-bold">15,892</span>
+                <span>Charts:</span>
+                <span class="font-bold">{{ serie.nbChart || 0 }}</span>
               </div>
               <div class="flex justify-between">
-                <span>Nouveaux cette semaine:</span>
-                <span class="font-bold">127</span>
+                <span>Joueurs:</span>
+                <span class="font-bold">{{ serie.nbPlayer || 0 }}</span>
               </div>
             </div>
+            <div v-else class="text-center py-4">
+              <p>Statistiques non disponibles</p>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Games List -->
+      <section class="mb-12">
+        <h3 class="text-3xl font-bold mb-8 text-center">Jeux de la série {{ currentSerie?.name || 'Mario Kart' }}</h3>
+        
+        <div v-if="isLoading" class="text-center py-8">
+          <p>Chargement des jeux...</p>
+        </div>
+        
+        <div v-else-if="games.length > 0" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <GameCard 
+            v-for="game in games" 
+            :key="game.id" 
+            :game="game" 
+          />
+        </div>
+        
+        <div v-else class="text-center py-8">
+          <p>Aucun jeu trouvé pour cette série.</p>
         </div>
       </section>
 
@@ -89,9 +115,12 @@
 
 <script setup>
 import { useSerieStore } from '@stores/serieStore'
+import { storeToRefs } from 'pinia'
 
 const serieStore = useSerieStore()
+const { games, serie, isLoading, isLoaded, isSerieLoading } = storeToRefs(serieStore)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
+const config = useRuntimeConfig()
 
 function getGameTitle() {
   return currentSerie.value?.name || 'Mario Kart'
@@ -108,7 +137,7 @@ onMounted(async () => {
   
   if (detectedSerie) {
     currentSerie.value = detectedSerie
-    serieStore.fetchGames(currentSerie.value.id)
+    serieStore.fetchAll(currentSerie.value.id)
     console.log(`🎮 Serie detected: ${detectedSerie.name} (ID: ${detectedSerie.id})`)
     
     // Load theme CSS

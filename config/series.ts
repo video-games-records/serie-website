@@ -9,15 +9,7 @@ export const SERIES = {
     GRAN_TURISMO: 22,
 }
 
-export interface Serie {
-    id: number
-    name: string
-    subdomain: string
-    theme: string
-    primaryColor: string
-    secondaryColor: string
-    accentColor: string
-}
+import type { Serie } from '~/types/serie'
 
 export const SERIES_CONFIG: Record<string, Serie> = {
     'forza': {
