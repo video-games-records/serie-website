@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  components: true,
   modules: [
       '@nuxtjs/tailwindcss',
       '@pinia/nuxt',
@@ -18,7 +19,7 @@ export default defineNuxtConfig({
       alias: {
         '@stores': fileURLToPath(new URL('./stores', import.meta.url)),
         '@config': fileURLToPath(new URL('./config', import.meta.url)), 
-        '@assets': fileURLToPath(new URL('./assets', import.meta.url))
+        '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
       }
     },
     server: {
