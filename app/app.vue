@@ -6,7 +6,7 @@
     <header class="navbar text-white p-6 mb-8">
       <div class="container mx-auto">
         <h1 class="text-3xl font-bold">{{ getGameTitle() }} Records</h1>
-        <p class="text-lg opacity-90 mt-2">Série détectée: {{ currentSerie?.name || 'Mario Kart' }} (ID: {{ currentSerie?.id || 2 }})</p>
+        <p class="text-lg opacity-90 mt-2">{{ $t('home.series_detected') }}: {{ currentSerie?.name || 'Mario Kart' }} (ID: {{ currentSerie?.id || 2 }})</p>
       </div>
     </header>
 
@@ -14,12 +14,12 @@
     <main class="container mx-auto px-6 pb-12">
       <!-- Hero Section -->
       <section class="text-center mb-12">
-        <h2 class="text-5xl font-bold mb-6">Bienvenue sur Video Games Records</h2>
-        <p class="text-xl mb-8 opacity-80">Découvrez nos thèmes dynamiques basés sur les sous-domaines</p>
+        <h2 class="text-5xl font-bold mb-6">{{ $t('home.title') }}</h2>
+        <p class="text-xl mb-8 opacity-80">{{ $t('home.subtitle') }}</p>
         
         <div class="flex gap-4 justify-center flex-wrap">
-          <button class="btn-primary">Voir les Records</button>
-          <button class="btn-primary">Ajouter un Score</button>
+          <button class="btn-primary">{{ $t('home.view_records') }}</button>
+          <button class="btn-primary">{{ $t('home.add_score') }}</button>
         </div>
       </section>
 
@@ -38,26 +38,26 @@
           </div>
 
           <div class="card p-6">
-            <h4 class="text-2xl font-bold mb-4 text-accent">Statistiques de la série</h4>
+            <h4 class="text-2xl font-bold mb-4 text-accent">{{ $t('stats.title') }}</h4>
             <div v-if="isSerieLoading" class="text-center py-4">
-              <p>Chargement des statistiques...</p>
+              <p>{{ $t('stats.loading') }}</p>
             </div>
             <div v-else-if="serie" class="space-y-3">
               <div class="flex justify-between">
-                <span>Jeux:</span>
+                <span>{{ $t('stats.games') }}:</span>
                 <span class="font-bold">{{ serie.nbGame || 0 }}</span>
               </div>
               <div class="flex justify-between">
-                <span>Charts:</span>
+                <span>{{ $t('stats.charts') }}:</span>
                 <span class="font-bold">{{ serie.nbChart || 0 }}</span>
               </div>
               <div class="flex justify-between">
-                <span>Joueurs:</span>
+                <span>{{ $t('stats.players') }}:</span>
                 <span class="font-bold">{{ serie.nbPlayer || 0 }}</span>
               </div>
             </div>
             <div v-else class="text-center py-4">
-              <p>Statistiques non disponibles</p>
+              <p>{{ $t('stats.not_available') }}</p>
             </div>
           </div>
         </div>
@@ -65,10 +65,10 @@
 
       <!-- Games List -->
       <section class="mb-12">
-        <h3 class="text-3xl font-bold mb-8 text-center">Jeux de la série {{ currentSerie?.name || 'Mario Kart' }}</h3>
+        <h3 class="text-3xl font-bold mb-8 text-center">{{ $t('games.title', { series: currentSerie?.name || 'Mario Kart' }) }}</h3>
         
         <div v-if="isLoading" class="text-center py-8">
-          <p>Chargement des jeux...</p>
+          <p>{{ $t('games.loading') }}</p>
         </div>
         
         <div v-else-if="games.length > 0" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -80,7 +80,7 @@
         </div>
         
         <div v-else class="text-center py-8">
-          <p>Aucun jeu trouvé pour cette série.</p>
+          <p>{{ $t('games.none_found') }}</p>
         </div>
       </section>
 

@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "records": "Records",
+    "games": "Jeux",
+    "players": "Joueurs"
+  },
+  "home": {
+    "title": "Bienvenue sur Video Games Records",
+    "subtitle": "Découvrez nos thèmes dynamiques basés sur les sous-domaines",
+    "series_detected": "Série détectée",
+    "view_records": "Voir les Records",
+    "add_score": "Ajouter un Score"
+  },
+  "stats": {
+    "title": "Statistiques de la série",
+    "games": "Jeux",
+    "charts": "Records",
+    "players": "Joueurs",
+    "posts": "Posts",
+    "loading": "Chargement des statistiques...",
+    "not_available": "Statistiques non disponibles"
+  },
+  "games": {
+    "title": "Jeux de la série {series}",
+    "loading": "Chargement des jeux...",
+    "none_found": "Aucun jeu trouvé pour cette série.",
+    "charts": "Charts",
+    "posts": "Posts",
+    "players": "Joueurs"
+  },
+  "demo": {
+    "themes_title": "Démonstration des Thèmes",
+    "records_today": "Records du Jour",
+    "records_subtitle": "Découvrez les derniers records établis par la communauté.",
+    "racing_stripes": "Effet Racing Stripes (Thème Forza)",
+    "racing_stripes_desc": "Cette section démontre l'effet de bandes racing spécifique au thème Forza."
+  },
+  "info": {
+    "how_it_works": "Comment ça fonctionne ?",
+    "explanation": "Notre site détecte automatiquement le sous-domaine pour charger la série appropriée :",
+    "current_series": "Serie actuelle"
+  },
+  "footer": {
+    "copyright": "© 2024 Video Games Records - Propulsé par Nuxt.js avec thèmes dynamiques"
+  }
+}

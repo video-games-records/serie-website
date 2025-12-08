@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "home": "Home",
+    "records": "Records",
+    "games": "Games",
+    "players": "Players"
+  },
+  "home": {
+    "title": "Welcome to Video Games Records",
+    "subtitle": "Discover our dynamic themes based on subdomains",
+    "series_detected": "Series detected",
+    "view_records": "View Records",
+    "add_score": "Add Score"
+  },
+  "stats": {
+    "title": "Series Statistics",
+    "games": "Games",
+    "charts": "Charts", 
+    "players": "Players",
+    "posts": "Posts",
+    "loading": "Loading statistics...",
+    "not_available": "Statistics not available"
+  },
+  "games": {
+    "title": "Games in {series} series",
+    "loading": "Loading games...",
+    "none_found": "No games found for this series.",
+    "charts": "Charts",
+    "posts": "Posts",
+    "players": "Players"
+  },
+  "demo": {
+    "themes_title": "Theme Demonstration",
+    "records_today": "Today's Records",
+    "records_subtitle": "Discover the latest records set by the community.",
+    "racing_stripes": "Racing Stripes Effect (Forza Theme)",
+    "racing_stripes_desc": "This section demonstrates the racing stripes effect specific to the Forza theme."
+  },
+  "info": {
+    "how_it_works": "How does it work?",
+    "explanation": "Our site automatically detects the subdomain to load the appropriate series:",
+    "current_series": "Current series"
+  },
+  "footer": {
+    "copyright": "© 2024 Video Games Records - Powered by Nuxt.js with dynamic themes"
+  }
+}
