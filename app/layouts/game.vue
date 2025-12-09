@@ -1,0 +1,126 @@
+<template>
+  <div class="container mx-auto px-6 py-8">
+    <div v-if="pending" class="text-center py-8">
+      <p>{{ $t('game.loading') }}</p>
+    </div>
+    
+    <div v-else-if="error" class="text-center py-8 text-red-500">
+      <p>{{ $t('game.error') }}: {{ error }}</p>
+    </div>
+    
+    <div v-else-if="game">
+      <!-- Game Header -->
+      <div class="mb-8">
+        <div class="card p-6">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div v-if="game.picture" class="flex-shrink-0">
+              <img 
+                :src="`${config.public.apiBaseUrl.replace('/api', '')}/game/${game.id}/picture`" 
+                :alt="game.name"
+                class="w-48 h-48 object-cover rounded-lg"
+              />
+            </div>
+            
+            <div class="flex-1">
+              <NuxtLink :to="`/game/${gameId}`" class="text-3xl font-bold text-accent mb-4 hover:text-accent-dark transition-colors cursor-pointer block">
+                {{ game.name }}
+              </NuxtLink>
+              
+              <!-- Stats Cards -->
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                  <div class="text-2xl font-bold text-orange-500 mb-1">{{ game.nbChart || 0 }}</div>
+                  <div class="text-sm text-gray-600">{{ $t('stats.charts') }}</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                  <div class="text-2xl font-bold text-blue-500 mb-1">{{ game.nbPlayer || 0 }}</div>
+                  <div class="text-sm text-gray-600">{{ $t('stats.players') }}</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                  <div class="text-2xl font-bold text-green-500 mb-1">{{ game.nbPost || 0 }}</div>
+                  <div class="text-sm text-gray-600">{{ $t('stats.posts') }}</div>
+                </div>
+              </div>
+              
+              <div v-if="game.releaseDate" class="text-sm text-gray-600 mb-4">
+                <strong>{{ $t('game.release_date') }}:</strong> {{ formatDate(game.releaseDate) }}
+              </div>
+              
+              <div v-if="game.platforms && game.platforms.length" class="mb-4">
+                <strong class="block mb-2">{{ $t('game.platforms') }}:</strong>
+                <div class="flex flex-wrap gap-2">
+                  <span 
+                    v-for="platform in game.platforms" 
+                    :key="platform.id"
+                    class="px-3 py-1 bg-secondary text-white text-sm rounded-full"
+                  >
+                    {{ platform.name }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Page Content -->
+      <slot />
+    </div>
+    
+    <div v-else class="text-center py-8">
+      <p>{{ $t('game.not_found') }}</p>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { Game } from '@types/game'
+
+const route = useRoute()
+const config = useRuntimeConfig()
+
+// Extract gameId from route params
+const gameId = computed(() => {
+  // For routes like /game/[gameId] or /game/[gameId]/group/[groupId]
+  return route.params.gameId as string
+})
+
+// Get current serie from state
+const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
+
+// Initialize serie on client-side if not set
+onMounted(async () => {
+  if (process.client && !currentSerie.value?.id) {
+    const { getSerieFromHostname } = await import('@config/series')
+    const detectedSerie = getSerieFromHostname(window.location.hostname)
+    if (detectedSerie) {
+      currentSerie.value = detectedSerie
+    }
+  }
+})
+
+// Get game info with validation
+const { data: game, pending, error } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId.value}`, {
+  transform: (game: Game) => {
+    // Only validate if serie is initialized (skip validation during SSR or initial load)
+    if (process.client && currentSerie.value?.id && game.serie && game.serie.id !== currentSerie.value?.id) {
+      throw createError({ statusCode: 404, statusMessage: 'Game not found in current serie' })
+    }
+    return game
+  }
+})
+
+// Helper function to format date
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+// SEO
+useHead({
+  title: computed(() => game.value ? `${game.value.name} - Records` : 'Jeu - Records')
+})
+</script>

@@ -1,15 +1,16 @@
 <template>
-  <div class="card p-6 hover:shadow-lg transition-shadow">
+  <NuxtLink v-if="game.id" :to="`/game/${game.id}`" class="block">
+    <div class="card p-6 hover:shadow-lg transition-shadow hover:scale-105">
     <div class="mb-4 flex justify-center">
       <img 
         :src="gameImageUrl" 
-        :alt="game.name"
+        :alt="game.name || game.libGame"
         class="w-full max-w-[198px] h-[100px] object-cover rounded-lg"
         @error="onImageError"
       >
     </div>
     
-    <h4 class="text-xl font-bold mb-2 text-accent">{{ game.name }}</h4>
+    <h4 class="text-xl font-bold mb-2 text-accent">{{ game.name || game.libGame }}</h4>
     
     <div class="space-y-2 text-sm">
       <div class="flex justify-between">
@@ -33,11 +34,12 @@
           :key="platform.id"
           class="px-2 py-1 bg-secondary text-white text-xs rounded"
         >
-          {{ platform.name }}
+          {{ platform.name || platform.libPlatform }}
         </span>
       </div>
     </div>
-  </div>
+    </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">

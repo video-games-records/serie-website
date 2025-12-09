@@ -1,0 +1,110 @@
+<template>
+  <NuxtLayout name="game">
+    <!-- Breadcrumb -->
+    <div class="mb-8">
+      <nav class="flex items-center gap-2 text-sm">
+        <NuxtLink to="/" class="hover:text-accent">Accueil</NuxtLink>
+        <span>›</span>
+        <span class="text-accent">{{ game?.name || 'Jeu' }}</span>
+      </nav>
+    </div>
+
+    <!-- Groups Section -->
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold mb-6">{{ $t('game.groups_title') }}</h2>
+      
+      <div v-if="groups && groups.length > 0" class="card overflow-hidden">
+        <!-- Table Header -->
+        <div class="grid grid-cols-4 gap-4 p-4 border-b border-gray-600 font-medium text-sm">
+          <div>{{ $t('game.group') }}</div>
+          <div class="text-center">{{ $t('game.records') }}</div>
+          <div class="text-center">{{ $t('game.players') }}</div>
+          <div class="text-center">{{ $t('game.scores') }}</div>
+        </div>
+        
+        <!-- Table Body -->
+        <div>
+          <NuxtLink 
+            v-for="groupItem in groups" 
+            :key="groupItem.id"
+            :to="`/game/${gameId}/group/${groupItem.id}`"
+            class="grid grid-cols-4 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors cursor-pointer items-center"
+          >
+            <!-- Group Name -->
+            <div class="flex items-center">
+              <div class="w-6 h-6 bg-accent bg-opacity-20 rounded mr-3 flex items-center justify-center">
+                <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span>{{ groupItem.name }}</span>
+            </div>
+            
+            <!-- Records -->
+            <div class="text-center">
+              <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-orange-100 text-orange-800">
+                {{ groupItem.nbChart }}
+              </span>
+            </div>
+            
+            <!-- Players -->
+            <div class="text-center">
+              <span class="inline-flex items-center text-gray-600">
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM5 8a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2V8z" />
+                </svg>
+                {{ groupItem.nbPlayer }}
+              </span>
+            </div>
+            
+            <!-- Scores -->
+            <div class="text-center flex items-center justify-between">
+              <span class="text-gray-900 font-medium">{{ groupItem.nbPost }}</span>
+              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+      
+      <div v-else class="card p-6 text-center">
+        <p class="text-lg opacity-80">{{ $t('game.no_groups') }}</p>
+      </div>
+    </div>
+  </NuxtLayout>
+</template>
+
+<script setup lang="ts">
+import type { GroupsApiResponse } from '@types'
+import type { Game } from '@types'
+
+const route = useRoute()
+const config = useRuntimeConfig()
+
+// Get gameId from route params directly
+const gameId = route.params.gameId as string
+
+// Get game info (will be cached from layout)
+const { data: game } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
+
+// Get groups for this game
+const { data: groupsResponse } = await useFetch<GroupsApiResponse>(`${config.public.apiBaseUrl}/games/${gameId}/groups`)
+
+const groups = computed(() => {
+  return groupsResponse.value?.['hydra:member'] || []
+})
+
+const { t } = useI18n()
+
+// SEO
+useHead({
+  title: computed(() => game.value ? `${game.value.name} - Records` : 'Jeu - Records'),
+  meta: [
+    {
+      name: 'description',
+      content: computed(() => game.value ? t('meta.game_description', { game: game.value.name }) : '')
+    }
+  ]
+})
+</script>
