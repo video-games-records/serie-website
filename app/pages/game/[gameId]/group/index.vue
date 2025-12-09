@@ -57,7 +57,7 @@
                   <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="text-gray-900">{{ group.name || group.libGroup }}</span>
+              <span>{{ group.name || group.libGroup }}</span>
             </div>
             
             <!-- Records -->
@@ -69,7 +69,7 @@
             
             <!-- Players -->
             <div class="text-center">
-              <span class="inline-flex items-center text-gray-600">
+              <span class="inline-flex items-center opacity-80">
                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM5 8a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2V8z" />
                 </svg>
@@ -79,8 +79,8 @@
             
             <!-- Scores -->
             <div class="text-center flex items-center justify-between">
-              <span class="text-gray-900 font-medium">{{ group.nbPost || 0 }}</span>
-              <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <span class="font-medium">{{ group.nbPost || 0 }}</span>
+              <svg class="w-5 h-5 opacity-60" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
               </svg>
             </div>

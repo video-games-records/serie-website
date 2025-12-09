@@ -17,7 +17,7 @@
               <img 
                 :src="`${config.public.apiBaseUrl.replace('/api', '')}/game/${game.id}/picture`" 
                 :alt="game.name"
-                class="w-48 h-48 object-cover rounded-lg"
+                class="w-full md:w-64 object-contain rounded-lg"
               />
             </div>
             
@@ -28,21 +28,21 @@
               
               <!-- Stats Cards -->
               <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="bg-gray-50 rounded-lg p-4 text-center">
-                  <div class="text-2xl font-bold text-orange-500 mb-1">{{ game.nbChart || 0 }}</div>
-                  <div class="text-sm text-gray-600">{{ $t('stats.charts') }}</div>
+                <div class="card p-4 text-center">
+                  <div class="text-2xl font-bold text-primary mb-1">{{ game.nbChart || 0 }}</div>
+                  <div class="text-sm opacity-80">{{ $t('stats.charts') }}</div>
                 </div>
-                <div class="bg-gray-50 rounded-lg p-4 text-center">
-                  <div class="text-2xl font-bold text-blue-500 mb-1">{{ game.nbPlayer || 0 }}</div>
-                  <div class="text-sm text-gray-600">{{ $t('stats.players') }}</div>
+                <div class="card p-4 text-center">
+                  <div class="text-2xl font-bold text-secondary mb-1">{{ game.nbPlayer || 0 }}</div>
+                  <div class="text-sm opacity-80">{{ $t('stats.players') }}</div>
                 </div>
-                <div class="bg-gray-50 rounded-lg p-4 text-center">
-                  <div class="text-2xl font-bold text-green-500 mb-1">{{ game.nbPost || 0 }}</div>
-                  <div class="text-sm text-gray-600">{{ $t('stats.posts') }}</div>
+                <div class="card p-4 text-center">
+                  <div class="text-2xl font-bold text-accent mb-1">{{ game.nbPost || 0 }}</div>
+                  <div class="text-sm opacity-80">{{ $t('stats.posts') }}</div>
                 </div>
               </div>
               
-              <div v-if="game.releaseDate" class="text-sm text-gray-600 mb-4">
+              <div v-if="game.releaseDate" class="text-sm opacity-80 mb-4">
                 <strong>{{ $t('game.release_date') }}:</strong> {{ formatDate(game.releaseDate) }}
               </div>
               
@@ -52,7 +52,7 @@
                   <span 
                     v-for="platform in game.platforms" 
                     :key="platform.id"
-                    class="px-3 py-1 bg-secondary text-white text-sm rounded-full"
+                    class="px-3 py-1 bg-secondary text-sm rounded-full"
                   >
                     {{ platform.name }}
                   </span>

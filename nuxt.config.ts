@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     },
     server: {
       allowedHosts: [
+        'burnout.videogamesrecords.local',
         'mario-kart.videogamesrecords.local',
         'forza.videogamesrecords.local',
         'super-smash-bros.videogamesrecords.local',
