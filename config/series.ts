@@ -7,6 +7,7 @@ export const SERIES = {
     TRIALS: 12,
     MARIO_SONIC_OLYMPIC: 16,
     GRAN_TURISMO: 22,
+    BURNOUT: 36,
 }
 
 import type { Serie } from '~/types/serie'
@@ -74,6 +75,15 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#1E3A8A',
         secondaryColor: '#DC2626',
         accentColor: '#F59E0B',
+    },
+    'burnout': {
+        id: 36,
+        name: 'Burnout',
+        subdomain: 'burnout',
+        theme: 'burnout',
+        primaryColor: '#FF6600',
+        secondaryColor: '#000000',
+        accentColor: '#FFFF00',
     },
 }
 

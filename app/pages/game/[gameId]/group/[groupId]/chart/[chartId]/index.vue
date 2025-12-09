@@ -77,7 +77,7 @@
                 <span v-if="entry[0].platform" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                   {{ entry[0].platform.name }}
                 </span>
-                <span v-else class="text-gray-400">-</span>
+                <span v-else class="opacity-60">-</span>
               </div>
               
               <!-- Status -->
