@@ -60,6 +60,73 @@
       </div>
     </section>
 
+    <!-- Leaderboard Section -->
+    <section class="mb-12">
+      <h3 class="text-3xl font-bold mb-8 text-center">Classement</h3>
+      
+      <div v-if="isLeaderboardLoading" class="text-center py-8">
+        <p>Chargement du classement...</p>
+      </div>
+      
+      <div v-else-if="leaderboard && leaderboard.length > 0" class="card overflow-hidden">
+        <!-- Table Header -->
+        <div class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 font-medium text-sm">
+          <div class="text-center">Rang</div>
+          <div>Joueur</div>
+          <div class="text-center">Points</div>
+          <div class="text-center">Charts</div>
+          <div class="text-center">Prouvés</div>
+        </div>
+        
+        <!-- Table Body -->
+        <div>
+          <div 
+            v-for="(playerSerie, index) in leaderboard" 
+            :key="playerSerie.player.id"
+            class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
+            :class="{ 'bg-yellow-500 bg-opacity-20': playerSerie.rankPointChart <= 3 }"
+          >
+            <!-- Rank -->
+            <div class="text-center">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
+                    :class="{
+                      'bg-yellow-500 text-white': playerSerie.rankPointChart === 1,
+                      'bg-gray-400 text-white': playerSerie.rankPointChart === 2,
+                      'bg-orange-600 text-white': playerSerie.rankPointChart === 3,
+                      'bg-gray-100 text-gray-700': playerSerie.rankPointChart > 3
+                    }">
+                {{ playerSerie.rankPointChart }}
+              </span>
+            </div>
+            
+            <!-- Player -->
+            <div class="flex items-center">
+              <div class="font-medium">{{ playerSerie.player.pseudo }}</div>
+            </div>
+            
+            <!-- Points -->
+            <div class="text-center font-mono font-bold">
+              {{ playerSerie.pointChart.toLocaleString() }}
+            </div>
+            
+            <!-- Charts -->
+            <div class="text-center">
+              <span class="font-medium">{{ playerSerie.nbChart }}</span>
+            </div>
+            
+            <!-- Proven -->
+            <div class="text-center">
+              <span class="font-medium">{{ playerSerie.nbChartProven }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div v-else class="card p-8 text-center">
+        <p class="text-lg opacity-80">Aucun classement disponible</p>
+      </div>
+    </section>
+
     <!-- Racing Stripes Demo (Forza specific) -->
     <section v-if="currentSerie?.subdomain === 'forza'" class="racing-stripes p-6 card mb-8">
       <h3 class="text-2xl font-bold mb-4">Effet Racing Stripes (Thème Forza)</h3>
@@ -77,6 +144,16 @@ const serieStore = useSerieStore()
 const { games, serie, isLoading, isSerieLoading } = storeToRefs(serieStore)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 const { t } = useI18n()
+const config = useRuntimeConfig()
+
+// Get leaderboard for current serie
+const { data: leaderboardResponse, pending: isLeaderboardLoading } = await useFetch<import('@types/chart').PlayerRankingPointsResponse>(() => `${config.public.apiBaseUrl}/series/${currentSerie.value?.id || 2}/player-ranking-points?maxRank=100`, {
+  key: `leaderboard-${currentSerie.value?.id || 2}`
+})
+
+const leaderboard = computed(() => {
+  return leaderboardResponse.value?.['hydra:member'] || []
+})
 
 // SEO
 useHead({
