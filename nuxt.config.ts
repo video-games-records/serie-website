@@ -42,9 +42,10 @@ export default defineNuxtConfig({
   vite: {
     resolve: {
       alias: {
-        '@stores': fileURLToPath(new URL('./stores', import.meta.url)),
+        '@stores': fileURLToPath(new URL('./app/stores', import.meta.url)),
+        '@types': fileURLToPath(new URL('./app/types', import.meta.url)),
         '@config': fileURLToPath(new URL('./config', import.meta.url)), 
-        '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
+        '@assets': fileURLToPath(new URL('./app/assets', import.meta.url)),
       }
     },
     server: {

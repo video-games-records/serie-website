@@ -29,6 +29,20 @@
     "posts": "Posts",
     "players": "Players"
   },
+  "game": {
+    "loading": "Loading game...",
+    "error": "Error loading game",
+    "not_found": "Game not found",
+    "back_to_home": "Back to home",
+    "release_date": "Release date",
+    "platforms": "Platforms",
+    "groups_title": "Groups",
+    "no_groups": "No groups found for this game",
+    "group": "Group",
+    "records": "Records",
+    "players": "Players",
+    "scores": "Scores"
+  },
   "demo": {
     "themes_title": "Theme Demonstration",
     "records_today": "Today's Records",
@@ -43,5 +57,9 @@
   },
   "footer": {
     "copyright": "© 2024 Video Games Records - Powered by Nuxt.js with dynamic themes"
+  },
+  "meta": {
+    "home_description": "Discover all {series} records. Check rankings, times and scores of the best players in the community.",
+    "game_description": "Check all {game} records. Discover groups, charts and rankings of the best players."
   }
 }
