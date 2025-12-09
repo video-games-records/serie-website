@@ -3,10 +3,23 @@
     <NuxtRouteAnnouncer />
     
     <!-- Header/Navbar -->
-    <header class="navbar text-white p-6 mb-8">
-      <div class="container mx-auto">
-        <h1 class="text-3xl font-bold">{{ getGameTitle() }} Records</h1>
-        <p class="text-lg opacity-90 mt-2">{{ $t('home.series_detected') }}: {{ currentSerie?.name || 'Mario Kart' }} (ID: {{ currentSerie?.id || 2 }})</p>
+    <header class="navbar text-white mb-8 relative overflow-hidden h-[192px] md:h-[240px] lg:h-[288px]">
+      <!-- Banner Background -->
+      <div 
+        v-if="currentSerie?.subdomain" 
+        class="absolute inset-0 bg-no-repeat opacity-40"
+        :style="{ 
+          backgroundImage: `url(/banners/${currentSerie.subdomain}.webp)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center'
+        }"
+      ></div>
+      
+      <!-- Dark overlay for better text readability -->
+      <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+      
+      <div class="container mx-auto relative z-10 p-6 flex flex-col justify-center h-[192px] md:h-[240px] lg:h-[288px]">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-lg">{{ getGameTitle() }} Records</h1>
       </div>
     </header>
 
