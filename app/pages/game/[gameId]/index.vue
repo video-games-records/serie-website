@@ -72,6 +72,9 @@
         <p class="text-lg opacity-80">{{ $t('game.no_groups') }}</p>
       </div>
     </div>
+
+    <!-- Player Ranking Section -->
+    <GameRanking :game-id="gameId" />
   </NuxtLayout>
 </template>
 

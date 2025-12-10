@@ -14,15 +14,15 @@
     
     <div class="space-y-2 text-sm">
       <div class="flex justify-between">
-        <span>Charts:</span>
+        <span>{{ $t('games.charts') }}:</span>
         <span class="font-bold">{{ game.nbChart }}</span>
       </div>
       <div class="flex justify-between">
-        <span>Posts:</span>
+        <span>{{ $t('games.posts') }}:</span>
         <span class="font-bold">{{ game.nbPost }}</span>
       </div>
       <div class="flex justify-between">
-        <span>Joueurs:</span>
+        <span>{{ $t('games.players') }}:</span>
         <span class="font-bold">{{ game.nbPlayer }}</span>
       </div>
     </div>

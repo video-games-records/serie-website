@@ -25,9 +25,14 @@
     "title": "Jeux de la série {series}",
     "loading": "Chargement des jeux...",
     "none_found": "Aucun jeu trouvé pour cette série.",
-    "charts": "Charts",
-    "posts": "Posts",
-    "players": "Joueurs"
+    "charts": "Records",
+    "posts": "Scores", 
+    "players": "Joueurs",
+    "status": "Statut",
+    "release_date": "Sortie",
+    "view_records": "Voir les records",
+    "status_active": "Actif",
+    "status_inactive": "Inactif"
   },
   "game": {
     "loading": "Chargement du jeu...",
@@ -58,8 +63,32 @@
   "footer": {
     "copyright": "© 2024 Video Games Records - Propulsé par Nuxt.js avec thèmes dynamiques"
   },
+  "ranking": {
+    "title": "Classement des joueurs",
+    "rank": "Rang",
+    "player": "Joueur",
+    "team": "Équipe",
+    "points": "Points",
+    "points_chart": "Points Chart",
+    "points_game": "Points Jeu",
+    "medals": "Médailles",
+    "records": "Records",
+    "charts": "Charts",
+    "proven": "Prouvés",
+    "last_update": "Dernière MAJ",
+    "loading": "Chargement du classement...",
+    "error": "Erreur lors du chargement du classement",
+    "retry": "Réessayer",
+    "no_ranking": "Aucun classement disponible",
+    "no_ranking_game": "Aucun classement disponible pour ce jeu",
+    "displaying": "Affichage de {count} joueurs sur {total} au total",
+    "medals_platinum": "Platine",
+    "medals_gold": "Or", 
+    "medals_silver": "Argent",
+    "medals_bronze": "Bronze"
+  },
   "meta": {
     "home_description": "Découvrez tous les records de {series}. Consultez les classements, temps et scores des meilleurs joueurs de la communauté.",
-    "game_description": "Consultez tous les records du jeu {game}. Découvrez les groupes, charts et classements des meilleurs joueurs."
+    "game_description": "Consultez tous les records du jeu {game}. Découvrez les groupes, records et classements des meilleurs joueurs."
   }
 }

@@ -15,9 +15,9 @@
   "stats": {
     "title": "Series Statistics",
     "games": "Games",
-    "charts": "Charts", 
+    "charts": "Records", 
     "players": "Players",
-    "posts": "Posts",
+    "posts": "Scores",
     "loading": "Loading statistics...",
     "not_available": "Statistics not available"
   },
@@ -25,9 +25,14 @@
     "title": "Games in {series} series",
     "loading": "Loading games...",
     "none_found": "No games found for this series.",
-    "charts": "Charts",
-    "posts": "Posts",
-    "players": "Players"
+    "charts": "Records",
+    "posts": "Scores",
+    "players": "Players",
+    "status": "Status",
+    "release_date": "Release",
+    "view_records": "View records",
+    "status_active": "Active",
+    "status_inactive": "Inactive"
   },
   "game": {
     "loading": "Loading game...",
@@ -58,8 +63,32 @@
   "footer": {
     "copyright": "© 2024 Video Games Records - Powered by Nuxt.js with dynamic themes"
   },
+  "ranking": {
+    "title": "Player Rankings",
+    "rank": "Rank",
+    "player": "Player",
+    "team": "Team",
+    "points": "Points",
+    "points_chart": "Chart Points",
+    "points_game": "Game Points",
+    "medals": "Medals",
+    "records": "Records",
+    "charts": "Charts",
+    "proven": "Proven",
+    "last_update": "Last Update",
+    "loading": "Loading rankings...",
+    "error": "Error loading rankings",
+    "retry": "Retry",
+    "no_ranking": "No rankings available",
+    "no_ranking_game": "No rankings available for this game",
+    "displaying": "Displaying {count} players out of {total} total",
+    "medals_platinum": "Platinum",
+    "medals_gold": "Gold", 
+    "medals_silver": "Silver",
+    "medals_bronze": "Bronze"
+  },
   "meta": {
     "home_description": "Discover all {series} records. Check rankings, times and scores of the best players in the community.",
-    "game_description": "Check all {game} records. Discover groups, charts and rankings of the best players."
+    "game_description": "Check all {game} records. Discover groups, records and rankings of the best players."
   }
 }

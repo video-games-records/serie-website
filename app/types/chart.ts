@@ -31,32 +31,8 @@ export interface ParseMaskItem {
   suffixe: string
 }
 
-export interface Country {
-  "@id": string
-  "@type": "Country"
-  codeIso2: string
-  slug: string
-  id: number
-  name: string
-}
-
-export interface Player {
-  "@id": string
-  "@type": "Player"
-  id: number
-  pseudo: string
-  slug: string
-  country: Country
-}
-
-export interface Platform {
-  "@id": string
-  "@type": "Platform"
-  id: number
-  name: string
-  picture: string
-  slug: string
-}
+import type { Player } from './player'
+import type { Platform } from './platform'
 
 export interface Proof {
   "@id": string
@@ -118,44 +94,6 @@ export interface ChartsApiResponse {
   "@type": "hydra:Collection"
   "hydra:totalItems": number
   "hydra:member": Chart[]
-  "hydra:search": {
-    "@type": string
-    "hydra:template": string
-    "hydra:variableRepresentation": string
-    "hydra:mapping": Array<{
-      "@type": string
-      variable: string
-      property: string
-      required: boolean
-    }>
-  }
-}
-
-export interface PlayerSerie {
-  "@type": "PlayerSerie"
-  "@id": string
-  player: Player
-  pointChartWithoutDlc: number
-  pointGame: number
-  rankMedal: number
-  chartRank0: number
-  chartRank1: number
-  chartRank2: number
-  chartRank3: number
-  chartRank4: number
-  chartRank5: number
-  rankPointChart: number
-  pointChart: number
-  nbChart: number
-  nbChartProven: number
-}
-
-export interface PlayerRankingPointsResponse {
-  "@context": string
-  "@id": string
-  "@type": "hydra:Collection"
-  "hydra:totalItems": number
-  "hydra:member": PlayerSerie[]
   "hydra:search": {
     "@type": string
     "hydra:template": string

@@ -62,20 +62,20 @@
 
     <!-- Leaderboard Section -->
     <section class="mb-12">
-      <h3 class="text-3xl font-bold mb-8 text-center">Classement</h3>
+      <h3 class="text-3xl font-bold mb-8 text-center">{{ $t('ranking.title') }}</h3>
       
       <div v-if="isLeaderboardLoading" class="text-center py-8">
-        <p>Chargement du classement...</p>
+        <p>{{ $t('ranking.loading') }}</p>
       </div>
       
       <div v-else-if="leaderboard && leaderboard.length > 0" class="card overflow-hidden">
         <!-- Table Header -->
         <div class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 font-medium text-sm">
-          <div class="text-center">Rang</div>
-          <div>Joueur</div>
-          <div class="text-center">Points</div>
-          <div class="text-center">Charts</div>
-          <div class="text-center">Prouvés</div>
+          <div class="text-center">{{ $t('ranking.rank') }}</div>
+          <div>{{ $t('ranking.player') }}</div>
+          <div class="text-center">{{ $t('ranking.points') }}</div>
+          <div class="text-center">{{ $t('ranking.charts') }}</div>
+          <div class="text-center">{{ $t('ranking.proven') }}</div>
         </div>
         
         <!-- Table Body -->
@@ -84,15 +84,19 @@
             v-for="(playerSerie, index) in leaderboard" 
             :key="playerSerie.player.id"
             class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
-            :class="{ 'bg-yellow-500 bg-opacity-20': playerSerie.rankPointChart <= 3 }"
+            :class="{
+              'bg-yellow-500 bg-opacity-20': playerSerie.rankPointChart === 1,
+              'bg-gray-400 bg-opacity-20': playerSerie.rankPointChart === 2,
+              'bg-amber-600 bg-opacity-20': playerSerie.rankPointChart === 3
+            }"
           >
             <!-- Rank -->
             <div class="text-center">
               <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
                     :class="{
-                      'bg-yellow-500 text-white': playerSerie.rankPointChart === 1,
-                      'bg-gray-400 text-white': playerSerie.rankPointChart === 2,
-                      'bg-orange-600 text-white': playerSerie.rankPointChart === 3,
+                      'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerSerie.rankPointChart === 1,
+                      'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerSerie.rankPointChart === 2,
+                      'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': playerSerie.rankPointChart === 3,
                       'bg-gray-100 text-gray-700': playerSerie.rankPointChart > 3
                     }">
                 {{ playerSerie.rankPointChart }}
@@ -101,7 +105,7 @@
             
             <!-- Player -->
             <div class="flex items-center">
-              <div class="font-medium">{{ playerSerie.player.pseudo }}</div>
+              <PlayerLink :player="playerSerie.player" />
             </div>
             
             <!-- Points -->
@@ -123,7 +127,7 @@
       </div>
       
       <div v-else class="card p-8 text-center">
-        <p class="text-lg opacity-80">Aucun classement disponible</p>
+        <p class="text-lg opacity-80">{{ $t('ranking.no_ranking') }}</p>
       </div>
     </section>
 
@@ -146,14 +150,8 @@ const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2
 const { t } = useI18n()
 const config = useRuntimeConfig()
 
-// Get leaderboard for current serie
-const { data: leaderboardResponse, pending: isLeaderboardLoading } = await useFetch<import('@types/chart').PlayerRankingPointsResponse>(() => `${config.public.apiBaseUrl}/series/${currentSerie.value?.id || 2}/player-ranking-points?maxRank=100`, {
-  key: `leaderboard-${currentSerie.value?.id || 2}`
-})
-
-const leaderboard = computed(() => {
-  return leaderboardResponse.value?.['hydra:member'] || []
-})
+// Get leaderboard for current serie using composable
+const { rankings: leaderboard, pending: isLeaderboardLoading, error: leaderboardError } = useSerieRanking(currentSerie.value?.id || 2)
 
 // SEO
 useHead({
