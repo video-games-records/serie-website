@@ -47,15 +47,19 @@
               v-for="entry in ranking" 
               :key="entry[0].id"
               class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
-              :class="{ 'bg-yellow-500 bg-opacity-20': entry[0].rank <= 3 }"
+              :class="{
+                'bg-yellow-500 bg-opacity-20': entry[0].rank === 1,
+                'bg-gray-400 bg-opacity-20': entry[0].rank === 2,
+                'bg-amber-600 bg-opacity-20': entry[0].rank === 3
+              }"
             >
               <!-- Rank -->
               <div class="text-center">
                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
                       :class="{
-                        'bg-yellow-500 text-white': entry[0].rank === 1,
-                        'bg-gray-400 text-white': entry[0].rank === 2,
-                        'bg-orange-600 text-white': entry[0].rank === 3,
+                        'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry[0].rank === 1,
+                        'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry[0].rank === 2,
+                        'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': entry[0].rank === 3,
                         'bg-gray-100 text-gray-700': entry[0].rank > 3
                       }">
                   {{ entry[0].rank }}
@@ -64,7 +68,7 @@
               
               <!-- Player -->
               <div class="flex items-center">
-                <div class="font-medium">{{ entry[0].player.pseudo }}</div>
+                <PlayerLink :player="entry[0].player" />
               </div>
               
               <!-- Time -->
