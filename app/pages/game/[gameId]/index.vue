@@ -83,16 +83,15 @@ import type { GroupsApiResponse } from '@types'
 import type { Game } from '@types'
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 // Get gameId from route params directly
 const gameId = route.params.gameId as string
 
 // Get game info (will be cached from layout)
-const { data: game } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
+const { data: game } = await useFetchApi<Game>(`/games/${gameId}`)
 
 // Get groups for this game
-const { data: groupsResponse } = await useFetch<GroupsApiResponse>(`${config.public.apiBaseUrl}/games/${gameId}/groups`)
+const { data: groupsResponse } = await useFetchApi<GroupsApiResponse>(`/games/${gameId}/groups`)
 
 const groups = computed(() => {
   return groupsResponse.value?.['hydra:member'] || []
