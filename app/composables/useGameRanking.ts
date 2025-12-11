@@ -1,10 +1,8 @@
 import type { PlayerGameRankingApiResponse } from '@/types'
 
 export const useGameRanking = (gameId: string, maxRank: number = 100) => {
-  const config = useRuntimeConfig()
-  
-  const { data: rankingData, pending, error, refresh } = useFetch<PlayerGameRankingApiResponse>(
-    `${config.public.apiBaseUrl}/games/${gameId}/player-ranking-points?maxRank=${maxRank}`
+  const { data: rankingData, pending, error, refresh } = useFetchApi<PlayerGameRankingApiResponse>(
+    `/games/${gameId}/player-ranking-points?maxRank=${maxRank}`
   )
 
   const rankings = computed(() => {

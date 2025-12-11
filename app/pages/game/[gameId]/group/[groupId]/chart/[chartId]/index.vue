@@ -116,7 +116,6 @@ import type { Group } from '@types/group'
 import type { Game } from '@types/game'
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 // Route: /game/[gameId]/group/[groupId]/chart/[chartId]/
 const gameId = route.params.gameId as string
@@ -124,16 +123,16 @@ const groupId = route.params.groupId as string
 const chartId = route.params.chartId as string
 
 // Get game info (will be cached from layout)
-const { data: game } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
+const { data: game } = await useFetchApi<Game>(`/games/${gameId}`)
 
 // Get group info (will be cached)
-const { data: group } = await useFetch<Group>(`${config.public.apiBaseUrl}/groups/${groupId}`)
+const { data: group } = await useFetchApi<Group>(`/groups/${groupId}`)
 
 // Get chart info
-const { data: chart, pending, error } = await useFetch<Chart>(`${config.public.apiBaseUrl}/charts/${chartId}`)
+const { data: chart, pending, error } = await useFetchApi<Chart>(`/charts/${chartId}`)
 
 // Get player ranking for this chart
-const { data: rankingResponse, pending: rankingPending, error: rankingError } = await useFetch<PlayerRankingResponse>(`${config.public.apiBaseUrl}/charts/${chartId}/player-ranking`)
+const { data: rankingResponse, pending: rankingPending, error: rankingError } = await useFetchApi<PlayerRankingResponse>(`/charts/${chartId}/player-ranking`)
 
 const ranking = computed(() => {
   return rankingResponse.value?.['hydra:member'] || []

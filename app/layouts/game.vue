@@ -77,7 +77,6 @@
 import type { Game } from '@types/game'
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 // Extract gameId from route params
 const gameId = computed(() => {
@@ -100,7 +99,7 @@ onMounted(async () => {
 })
 
 // Get game info with validation
-const { data: game, pending, error } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId.value}`, {
+const { data: game, pending, error } = await useFetchApi<Game>(`/games/${gameId.value}`, {
   transform: (game: Game) => {
     // Only validate if serie is initialized (skip validation during SSR or initial load)
     if (process.client && currentSerie.value?.id && game.serie && game.serie.id !== currentSerie.value?.id) {

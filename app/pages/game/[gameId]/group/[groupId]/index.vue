@@ -83,20 +83,19 @@ import type { Game } from '@types/game'
 import type { Chart, ChartsApiResponse } from '@types/chart'
 
 const route = useRoute()
-const config = useRuntimeConfig()
 
 // Route: /game/[gameId]/group/[groupId]/
 const gameId = route.params.gameId as string
 const groupId = route.params.groupId as string
 
 // Get game info (will be cached from layout)
-const { data: game } = await useFetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
+const { data: game } = await useFetchApi<Game>(`/games/${gameId}`)
 
 // Get group info  
-const { data: group, pending, error } = await useFetch<Group>(`${config.public.apiBaseUrl}/groups/${groupId}`)
+const { data: group, pending, error } = await useFetchApi<Group>(`/groups/${groupId}`)
 
 // Get charts for this group
-const { data: chartsResponse } = await useFetch<ChartsApiResponse>(`${config.public.apiBaseUrl}/groups/${groupId}/charts`)
+const { data: chartsResponse } = await useFetchApi<ChartsApiResponse>(`/groups/${groupId}/charts`)
 
 const charts = computed(() => {
   return chartsResponse.value?.['hydra:member'] || []
