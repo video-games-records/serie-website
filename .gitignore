@@ -18,8 +18,6 @@ logs
 .fleet
 .idea
 
-# Local env files
-.env
-.env.*
-!.env.example
+# Local env files (only exclude local overrides)
+.env.local
 /.claude/

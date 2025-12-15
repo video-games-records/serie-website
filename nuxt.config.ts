@@ -36,7 +36,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.API_BASE_URL || 'http://backoffice.vgr.local/api'
+      apiBaseUrl: process.env.API_BASE_URL || 'http://backoffice.vgr.local/api',
+      googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
+      nuxtEnv: process.env.NUXT_ENV || 'development'
     }
   },
   vite: {
