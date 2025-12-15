@@ -9,6 +9,15 @@ export default defineNuxtConfig({
       '@nuxtjs/tailwindcss',
       '@pinia/nuxt',
       '@nuxtjs/i18n',
+      [
+        '@nuxtjs/google-adsense',
+        {
+          id: process.env.GOOGLE_ADSENSE_ID,
+          onPageLoad: true,
+          pageLevelAds: true,
+          test: process.env.NUXT_ENV === 'development'
+        }
+      ]
   ],
   i18n: {
     locales: [
@@ -38,6 +47,7 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: process.env.API_BASE_URL || 'http://backoffice.vgr.local/api',
       googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
+      googleAdsenseId: process.env.GOOGLE_ADSENSE_ID,
       nuxtEnv: process.env.NUXT_ENV || 'development'
     }
   },
