@@ -100,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Group, GroupsApiResponse } from '@types/group'
+import type { GroupsApiResponse } from '@types/group'
 import type { Game } from '@types/game'
 
 const route = useRoute()
@@ -109,7 +109,7 @@ const config = useRuntimeConfig()
 const gameId = route.params.id as string
 
 // Get game info
-const { data: game, pending: gamePending, error: gameError } = await $fetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
+const { data: game } = await $fetch<Game>(`${config.public.apiBaseUrl}/games/${gameId}`)
 
 // Get groups for this game
 const { data: groupsResponse, pending, error } = await $fetch<GroupsApiResponse>(`${config.public.apiBaseUrl}/games/${gameId}/groups`)

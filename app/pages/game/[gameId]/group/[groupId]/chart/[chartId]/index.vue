@@ -55,7 +55,8 @@
             >
               <!-- Rank -->
               <div class="text-center">
-                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
+                <span
+class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
                       :class="{
                         'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry[0].rank === 1,
                         'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry[0].rank === 2,

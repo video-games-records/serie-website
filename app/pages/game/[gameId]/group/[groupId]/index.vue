@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import type { Group } from '@types/group'
 import type { Game } from '@types/game'
-import type { Chart, ChartsApiResponse } from '@types/chart'
+import type { ChartsApiResponse } from '@types/chart'
 
 const route = useRoute()
 

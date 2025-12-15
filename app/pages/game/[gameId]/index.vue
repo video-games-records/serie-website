@@ -79,8 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import type { GroupsApiResponse } from '@types'
-import type { Game } from '@types'
+import type { GroupsApiResponse, Game  } from '@types'
 
 const route = useRoute()
 
