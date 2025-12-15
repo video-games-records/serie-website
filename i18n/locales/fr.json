@@ -105,5 +105,28 @@
     "seo_description": "Connectez-vous à votre compte VideoGamesRecords pour",
     "seo_description_2": "Consultez vos statistiques et records personnels.",
     "og_description": "Page de connexion VideoGamesRecords pour"
+  },
+  "player": {
+    "loading": "Chargement du profil...",
+    "error": "Erreur lors du chargement du profil",
+    "not_found": "Joueur non trouvé",
+    "back_home": "Retour à l'accueil",
+    "status": "Statut",
+    "country": "Pays",
+    "member_since": "Membre depuis",
+    "rank_chart": "Rang Points",
+    "rank_game": "Rang Jeux",
+    "rank_medal": "Rang Médailles",
+    "points_chart": "Points Records",
+    "points_game": "Points Jeux",
+    "nb_charts": "Records",
+    "nb_games": "Jeux",
+    "medals": "Médailles",
+    "platinum_charts": "Platine",
+    "gold_charts": "Or",
+    "silver_charts": "Argent",
+    "bronze_charts": "Bronze",
+    "presentation": "Présentation",
+    "collection": "Collection"
   }
 }

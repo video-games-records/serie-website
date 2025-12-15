@@ -1,8 +1,8 @@
 /* Mario Kart Theme */
 :root {
   --primary-color: #FF6B6B;
-  --secondary-color: #4ECDC4;
-  --accent-color: #FFE66D;
+  --secondary-color: #2E8B8B;
+  --accent-color: #F39C12;
   --background-color: #F7F9FC;
   --text-color: #2C3E50;
   --card-bg: #FFFFFF;
@@ -46,6 +46,14 @@ body {
 
 .text-accent {
   color: var(--accent-color);
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
 }
 
 .bg-primary {

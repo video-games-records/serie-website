@@ -105,5 +105,28 @@
     "seo_description": "Sign in to your VideoGamesRecords account for",
     "seo_description_2": "Check your personal statistics and records.",
     "og_description": "VideoGamesRecords login page for"
+  },
+  "player": {
+    "loading": "Loading profile...",
+    "error": "Error loading profile",
+    "not_found": "Player not found",
+    "back_home": "Back to home",
+    "status": "Status",
+    "country": "Country",
+    "member_since": "Member since",
+    "rank_chart": "Points Rank",
+    "rank_game": "Game Rank",
+    "rank_medal": "Medal Rank",
+    "points_chart": "Records Points",
+    "points_game": "Game Points",
+    "nb_charts": "Records",
+    "nb_games": "Games",
+    "medals": "Medals",
+    "platinum_charts": "Platinum",
+    "gold_charts": "Gold",
+    "silver_charts": "Silver",
+    "bronze_charts": "Bronze",
+    "presentation": "Presentation",
+    "collection": "Collection"
   }
 }

@@ -15,7 +15,7 @@
 }
 
 .text-secondary {
-  color: #FFFFFF !important;
+  color: var(--secondary-color) !important;
 }
 
 .text-accent {

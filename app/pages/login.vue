@@ -71,30 +71,12 @@
 const { login } = useAuth()
 const router = useRouter()
 
-// Serie management (same as app.vue)
+// Serie management (shared state, managed by app.vue)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 
 function getGameTitle() {
   return currentSerie.value?.name || 'Mario Kart'
 }
-
-// Theme detection (same as app.vue)
-onMounted(async () => {
-  if (import.meta.client && !currentSerie.value?.id) {
-    const { getSerieFromHostname } = await import('@config/series')
-    const detectedSerie = getSerieFromHostname(window.location.hostname)
-    if (detectedSerie) {
-      currentSerie.value = detectedSerie
-      
-      // Load theme CSS
-      try {
-        await import(`@assets/styles/${detectedSerie.theme}.css`)
-      } catch {
-        await import('@assets/styles/mario-kart.css')
-      }
-    }
-  }
-})
 
 const form = reactive({
   username: '',
