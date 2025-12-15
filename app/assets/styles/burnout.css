@@ -143,3 +143,28 @@ h1, h2, h3 {
     0 0 10px var(--accent-color),
     0 0 15px var(--accent-color);
 }
+
+/* Form inputs styling for Burnout theme */
+input[type="text"], input[type="password"], input[type="email"] {
+  background-color: #1A1A1A !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+input[type="text"]::placeholder, 
+input[type="password"]::placeholder, 
+input[type="email"]::placeholder {
+  color: #999999 !important;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.3) !important;
+}
+
+/* Labels styling */
+label {
+  color: var(--text-color) !important;
+}

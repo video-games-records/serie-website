@@ -18,8 +18,33 @@
       <!-- Dark overlay for better text readability -->
       <div class="absolute inset-0 bg-black bg-opacity-30"></div>
       
-      <div class="container mx-auto relative z-10 p-6 flex flex-col justify-center h-[192px] md:h-[240px] lg:h-[288px]">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-lg">{{ getGameTitle() }} Records</h1>
+      <div class="container mx-auto relative z-10 p-6 flex flex-col justify-between h-[192px] md:h-[240px] lg:h-[288px]">
+        <!-- Top Navigation -->
+        <nav class="flex justify-end">
+          <div v-if="isAuthenticated" class="flex items-center space-x-3">
+            <span class="text-sm">{{ user?.username }}</span>
+            <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
+              <span class="text-xs font-semibold text-white">{{ getUserInitials() }}</span>
+            </div>
+            <button @click="handleLogout" class="text-sm hover:text-gray-300">
+              Déconnexion
+            </button>
+          </div>
+          <div v-else>
+            <NuxtLink 
+              to="/login" 
+              class="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors"
+            >
+              <span>→</span>
+              <span>Login</span>
+            </NuxtLink>
+          </div>
+        </nav>
+        
+        <!-- Title -->
+        <div class="flex-1 flex items-center">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-lg">{{ getGameTitle() }} Records</h1>
+        </div>
       </div>
     </header>
 
@@ -44,8 +69,21 @@ const { games, serie, isLoading, isLoaded, isSerieLoading } = storeToRefs(serieS
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 const config = useRuntimeConfig()
 
+// Auth
+const { user, isAuthenticated, logout } = useAuth()
+
 function getGameTitle() {
   return currentSerie.value?.name || 'Mario Kart'
+}
+
+function getUserInitials() {
+  if (!user.value?.username) return '?'
+  return user.value.username.charAt(0).toUpperCase()
+}
+
+async function handleLogout() {
+  logout()
+  await navigateTo('/')
 }
 
 // Détection de thème avec config complète

@@ -90,5 +90,20 @@
   "meta": {
     "home_description": "Discover all {series} records. Check rankings, times and scores of the best players in the community.",
     "game_description": "Check all {game} records. Discover groups, records and rankings of the best players."
+  },
+  "auth": {
+    "login": "Login",
+    "login_subtitle": "Sign in to your VideoGamesRecords account",
+    "username": "Username",
+    "password": "Password",
+    "username_placeholder": "Your username",
+    "password_placeholder": "Your password",
+    "login_error": "Login error",
+    "login_error_default": "An error occurred during login",
+    "logging_in": "Logging in...",
+    "login_button": "Sign in",
+    "seo_description": "Sign in to your VideoGamesRecords account for",
+    "seo_description_2": "Check your personal statistics and records.",
+    "og_description": "VideoGamesRecords login page for"
   }
 }
