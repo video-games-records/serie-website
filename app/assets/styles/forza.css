@@ -84,3 +84,28 @@ h1, h2, h3 {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
 }
 
+/* Form inputs styling for Forza theme */
+input[type="text"], input[type="password"], input[type="email"] {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+input[type="text"]::placeholder, 
+input[type="password"]::placeholder, 
+input[type="email"]::placeholder {
+  color: #8B949E !important;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="email"]:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.3) !important;
+}
+
+/* Labels styling */
+label {
+  color: var(--text-color) !important;
+}
+

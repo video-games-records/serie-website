@@ -90,5 +90,20 @@
   "meta": {
     "home_description": "Découvrez tous les records de {series}. Consultez les classements, temps et scores des meilleurs joueurs de la communauté.",
     "game_description": "Consultez tous les records du jeu {game}. Découvrez les groupes, records et classements des meilleurs joueurs."
+  },
+  "auth": {
+    "login": "Connexion",
+    "login_subtitle": "Connectez-vous à votre compte VideoGamesRecords",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "username_placeholder": "Votre nom d'utilisateur",
+    "password_placeholder": "Votre mot de passe",
+    "login_error": "Erreur de connexion",
+    "login_error_default": "Une erreur est survenue lors de la connexion",
+    "logging_in": "Connexion en cours...",
+    "login_button": "Se connecter",
+    "seo_description": "Connectez-vous à votre compte VideoGamesRecords pour",
+    "seo_description_2": "Consultez vos statistiques et records personnels.",
+    "og_description": "Page de connexion VideoGamesRecords pour"
   }
 }
