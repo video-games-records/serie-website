@@ -43,7 +43,9 @@
         
         <!-- Title -->
         <div class="flex-1 flex items-center">
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-lg">{{ getGameTitle() }} Records</h1>
+          <NuxtLink to="/" class="hover:text-gray-300 transition-colors">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold drop-shadow-lg">{{ getGameTitle() }} Records</h1>
+          </NuxtLink>
         </div>
       </div>
     </header>

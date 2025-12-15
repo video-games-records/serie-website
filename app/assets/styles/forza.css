@@ -48,7 +48,15 @@ body {
 }
 
 .text-accent {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
 }
 
 .bg-primary {

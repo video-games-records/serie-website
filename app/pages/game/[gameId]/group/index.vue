@@ -18,13 +18,13 @@
             {{ game?.libGame || 'Jeu' }}
           </NuxtLink>
           <span>›</span>
-          <span class="text-accent">Groupes</span>
+          <span style="color: var(--text-color);">Groupes</span>
         </nav>
       </div>
       
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-accent mb-4">
+        <h1 class="text-3xl font-bold mb-4" style="color: var(--text-color);">
           Groupes - {{ game?.libGame || 'Jeu' }}
         </h1>
         <p class="text-lg opacity-80">

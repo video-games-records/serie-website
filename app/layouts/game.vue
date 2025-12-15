@@ -33,8 +33,8 @@
                   <div class="text-sm opacity-80">{{ $t('stats.charts') }}</div>
                 </div>
                 <div class="card p-4 text-center">
-                  <div class="text-2xl font-bold text-secondary mb-1">{{ game.nbPlayer || 0 }}</div>
-                  <div class="text-sm opacity-80">{{ $t('stats.players') }}</div>
+                  <div class="text-2xl font-bold text-secondary">{{ game.nbPlayer || 0 }}</div>
+                  <div class="text-sm opacity-70">{{ $t('stats.players') }}</div>
                 </div>
                 <div class="card p-4 text-center">
                   <div class="text-2xl font-bold text-accent mb-1">{{ game.nbPost || 0 }}</div>

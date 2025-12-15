@@ -18,7 +18,7 @@
             {{ game?.name || 'Jeu' }}
           </NuxtLink>
           <span>›</span>
-          <span class="text-accent">{{ group.name }}</span>
+          <span style="color: var(--text-color);">{{ group.name }}</span>
         </nav>
       </div>
       

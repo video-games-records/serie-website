@@ -5,7 +5,7 @@
       <nav class="flex items-center gap-2 text-sm">
         <NuxtLink to="/" class="hover:text-accent">Accueil</NuxtLink>
         <span>›</span>
-        <span class="text-accent">{{ game?.name || 'Jeu' }}</span>
+        <span style="color: var(--text-color);">{{ game?.name || 'Jeu' }}</span>
       </nav>
     </div>
 
@@ -15,7 +15,7 @@
       
       <div v-if="groups && groups.length > 0" class="card overflow-hidden">
         <!-- Table Header -->
-        <div class="grid grid-cols-4 gap-4 p-4 border-b border-gray-600 font-medium text-sm">
+        <div class="grid grid-cols-4 gap-4 p-4 border-b font-medium text-sm" style="border-color: var(--border-color); color: var(--text-color);">
           <div>{{ $t('game.group') }}</div>
           <div class="text-center">{{ $t('game.records') }}</div>
           <div class="text-center">{{ $t('game.players') }}</div>
@@ -28,7 +28,8 @@
             v-for="groupItem in groups" 
             :key="groupItem.id"
             :to="`/game/${gameId}/group/${groupItem.id}`"
-            class="grid grid-cols-4 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors cursor-pointer items-center"
+            class="grid grid-cols-4 gap-4 p-4 border-b hover:bg-opacity-10 transition-colors cursor-pointer items-center"
+            style="border-color: var(--border-color); color: var(--text-color);"
           >
             <!-- Group Name -->
             <div class="flex items-center">

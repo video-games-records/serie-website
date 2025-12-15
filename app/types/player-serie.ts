@@ -4,13 +4,16 @@ import type { Serie } from './serie'
 export interface PlayerSerie {
   '@id': string
   '@type': string
-  player: Player
-  serie: Serie
+  player?: Player
+  serie?: Serie
+  pointChartWithoutDlc: number
   pointChart: number
   pointGame: number
-  lastUpdate: string
+  lastUpdate?: string
   nbChart: number
+  nbChartWithoutDlc: number
   nbChartProven: number
+  nbChartProvenWithoutDlc: number
   nbGame: number
   rankMedal: number
   chartRank0: number

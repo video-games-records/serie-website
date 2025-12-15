@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <NuxtLink :to="`/player/${player.id}`" class="flex items-center hover:text-blue-600 transition-colors">
     <img 
       v-if="player.country"
       :src="`https://flagicons.lipis.dev/flags/4x3/${player.country.codeIso2.toLowerCase()}.svg`"
@@ -7,7 +7,7 @@
       class="w-5 h-4 mr-2 rounded"
     >
     <span class="font-medium">{{ player.pseudo }}</span>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">

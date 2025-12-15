@@ -77,8 +77,16 @@ body {
 }
 
 .text-accent {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
   text-shadow: 0 0 8px var(--accent-color);
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
 }
 
 .bg-primary {

@@ -22,7 +22,7 @@
             {{ group?.name || 'Groupe' }}
           </NuxtLink>
           <span>›</span>
-          <span class="text-accent">{{ chart.name }}</span>
+          <span style="color: var(--text-color);">{{ chart.name }}</span>
         </nav>
       </div>
       
