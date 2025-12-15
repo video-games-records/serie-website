@@ -81,7 +81,7 @@
         <!-- Table Body -->
         <div>
           <div 
-            v-for="(playerSerie, index) in leaderboard" 
+            v-for="playerSerie in leaderboard" 
             :key="playerSerie.player.id"
             class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
             :class="{
@@ -92,7 +92,8 @@
           >
             <!-- Rank -->
             <div class="text-center">
-              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
+              <span
+class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
                     :class="{
                       'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerSerie.rankPointChart === 1,
                       'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerSerie.rankPointChart === 2,
@@ -148,10 +149,9 @@ const serieStore = useSerieStore()
 const { games, serie, isLoading, isSerieLoading } = storeToRefs(serieStore)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 const { t } = useI18n()
-const config = useRuntimeConfig()
 
 // Get leaderboard for current serie using composable
-const { rankings: leaderboard, pending: isLeaderboardLoading, error: leaderboardError } = useSerieRanking(currentSerie.value?.id || 2)
+const { rankings: leaderboard, pending: isLeaderboardLoading } = useSerieRanking(currentSerie.value?.id || 2)
 
 // SEO
 useHead({

@@ -80,7 +80,7 @@ function getGameTitle() {
 
 // Theme detection (same as app.vue)
 onMounted(async () => {
-  if (process.client && !currentSerie.value?.id) {
+  if (import.meta.client && !currentSerie.value?.id) {
     const { getSerieFromHostname } = await import('@config/series')
     const detectedSerie = getSerieFromHostname(window.location.hostname)
     if (detectedSerie) {
@@ -89,7 +89,7 @@ onMounted(async () => {
       // Load theme CSS
       try {
         await import(`@assets/styles/${detectedSerie.theme}.css`)
-      } catch (error) {
+      } catch {
         await import('@assets/styles/mario-kart.css')
       }
     }
@@ -111,8 +111,8 @@ const handleLogin = async () => {
   try {
     await login(form.username, form.password)
     await router.push('/')
-  } catch (err: any) {
-    error.value = err.message || $t('auth.login_error_default')
+  } catch (err: unknown) {
+    error.value = (err as Error).message || $t('auth.login_error_default')
   } finally {
     loading.value = false
   }

@@ -13,10 +13,10 @@
           backgroundSize: 'cover',
           backgroundPosition: 'center center'
         }"
-      ></div>
+      />
       
       <!-- Dark overlay for better text readability -->
-      <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+      <div class="absolute inset-0 bg-black bg-opacity-30"/>
       
       <div class="container mx-auto relative z-10 p-6 flex flex-col justify-between h-[192px] md:h-[240px] lg:h-[288px]">
         <!-- Top Navigation -->
@@ -26,7 +26,7 @@
             <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
               <span class="text-xs font-semibold text-white">{{ getUserInitials() }}</span>
             </div>
-            <button @click="handleLogout" class="text-sm hover:text-gray-300">
+            <button class="text-sm hover:text-gray-300" @click="handleLogout">
               Déconnexion
             </button>
           </div>
@@ -62,12 +62,9 @@
 
 <script setup>
 import { useSerieStore } from '@stores/serieStore'
-import { storeToRefs } from 'pinia'
 
 const serieStore = useSerieStore()
-const { games, serie, isLoading, isLoaded, isSerieLoading } = storeToRefs(serieStore)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
-const config = useRuntimeConfig()
 
 // Auth
 const { user, isAuthenticated, logout } = useAuth()
@@ -104,7 +101,7 @@ onMounted(async () => {
     try {
       await import(`@assets/styles/${detectedSerie.theme}.css`)
       console.log(`✅ Theme CSS loaded: ${detectedSerie.theme}`)
-    } catch (error) {
+    } catch {
       console.log('❌ Theme CSS failed, using fallback')
       await import('@assets/styles/mario-kart.css')
     }

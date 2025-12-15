@@ -1,4 +1,6 @@
 // config/series.ts
+import type { Serie } from '~/types/serie'
+
 export const SERIES = {
     FORZA: 1,
     MARIO_KART: 2,
@@ -9,8 +11,6 @@ export const SERIES = {
     GRAN_TURISMO: 22,
     BURNOUT: 36,
 }
-
-import type { Serie } from '~/types/serie'
 
 export const SERIES_CONFIG: Record<string, Serie> = {
     'forza': {

@@ -4,14 +4,14 @@
     
     <div v-if="pending" class="card p-6 text-center">
       <div class="animate-pulse">
-        <div class="h-4 bg-gray-700 rounded w-3/4 mx-auto mb-2"></div>
-        <div class="h-4 bg-gray-700 rounded w-1/2 mx-auto"></div>
+        <div class="h-4 bg-gray-700 rounded w-3/4 mx-auto mb-2"/>
+        <div class="h-4 bg-gray-700 rounded w-1/2 mx-auto"/>
       </div>
     </div>
     
     <div v-else-if="error" class="card p-6 text-center text-red-400">
       <p>{{ $t('ranking.error') }}</p>
-      <button @click="refresh" class="mt-2 px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark">
+      <button class="mt-2 px-4 py-2 bg-accent text-white rounded hover:bg-accent-dark" @click="refresh">
         {{ $t('ranking.retry') }}
       </button>
     </div>
@@ -29,7 +29,7 @@
       <!-- Table Body -->
       <div>
         <div 
-          v-for="(playerGame, index) in rankings" 
+          v-for="playerGame in rankings" 
           :key="playerGame.player.id"
           class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
           :class="{
@@ -101,7 +101,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { t } = useI18n()
 
 const { rankings, totalItems, pending, error, refresh } = useGameRanking(props.gameId)
 </script>

@@ -18,7 +18,7 @@
                 :src="getGameImageUrl(game.id)" 
                 :alt="game.name"
                 class="w-full md:w-64 object-contain rounded-lg"
-              />
+              >
             </div>
             
             <div class="flex-1">
@@ -89,7 +89,7 @@ const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2
 
 // Initialize serie on client-side if not set
 onMounted(async () => {
-  if (process.client && !currentSerie.value?.id) {
+  if (import.meta.client && !currentSerie.value?.id) {
     const { getSerieFromHostname } = await import('@config/series')
     const detectedSerie = getSerieFromHostname(window.location.hostname)
     if (detectedSerie) {
@@ -102,7 +102,7 @@ onMounted(async () => {
 const { data: game, pending, error } = await useFetchApi<Game>(`/games/${gameId.value}`, {
   transform: (game: Game) => {
     // Only validate if serie is initialized (skip validation during SSR or initial load)
-    if (process.client && currentSerie.value?.id && game.serie && game.serie.id !== currentSerie.value?.id) {
+    if (import.meta.client && currentSerie.value?.id && game.serie && game.serie.id !== currentSerie.value?.id) {
       throw createError({ statusCode: 404, statusMessage: 'Game not found in current serie' })
     }
     return game

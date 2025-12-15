@@ -1,3 +1,6 @@
+import type { Player } from './player'
+import type { Platform } from './platform'
+
 export interface Chart {
   "@id": string
   "@type": "Chart"
@@ -31,9 +34,6 @@ export interface ParseMaskItem {
   suffixe: string
 }
 
-import type { Player } from './player'
-import type { Platform } from './platform'
-
 export interface Proof {
   "@id": string
   "@type": "Proof"
@@ -65,7 +65,7 @@ export interface PlayerChart {
 
 export interface PlayerRankingEntry {
   "0": PlayerChart
-  [key: string]: any // for value_X properties
+  [key: string]: string | PlayerChart | string[] // for value_X properties
   values: string[]
 }
 
