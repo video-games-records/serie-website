@@ -137,12 +137,14 @@
       <!-- Presentation -->
       <div v-if="player.presentation && player.displayPersonalInfos" class="card p-6 mb-8">
         <h3 class="text-xl font-bold mb-4">{{ $t('player.presentation') }}</h3>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="prose max-w-none" v-html="player.presentation"/>
       </div>
 
       <!-- Collection -->
       <div v-if="player.collection && player.displayPersonalInfos" class="card p-6">
         <h3 class="text-xl font-bold mb-4">{{ $t('player.collection') }}</h3>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="prose max-w-none" v-html="player.collection"/>
       </div>
     </div>
@@ -157,7 +159,7 @@
 
 <script setup lang="ts">
 import type { Player } from '~/types/player'
-import type { PlayerSerie, PlayerSerieRankingApiResponse } from '~/types/player-serie'
+import type { PlayerSerieRankingApiResponse } from '~/types/player-serie'
 
 const route = useRoute()
 const playerId = route.params.id as string
@@ -169,7 +171,7 @@ const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2
 const { data: player, pending, error } = await useFetchApi<Player>(`/players/${playerId}`)
 
 // Wait for serie detection before fetching serie stats
-const playerSerieData = ref<any>(null)
+const playerSerieData = ref<PlayerSerieRankingApiResponse | null>(null)
 const playerSerie = computed(() => playerSerieData.value?.['hydra:member']?.[0])
 
 // Watch for serie changes and fetch data
