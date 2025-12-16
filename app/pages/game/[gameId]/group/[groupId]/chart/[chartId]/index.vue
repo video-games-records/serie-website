@@ -27,6 +27,19 @@
       </div>
       
       
+      <!-- Submit Score Button -->
+      <div class="mb-8 text-center">
+        <NuxtLink 
+          :to="`/game/${gameId}/group/${groupId}/chart/${chartId}/submit`"
+          class="inline-flex items-center px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+          Soumettre un score
+        </NuxtLink>
+      </div>
+
       <!-- Ranking Section -->
       <div class="mb-8">
         <h3 class="text-xl font-bold mb-6">Classement ({{ ranking.length }} joueurs)</h3>

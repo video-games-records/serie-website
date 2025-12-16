@@ -130,5 +130,37 @@
     "bronze_charts": "Bronze",
     "presentation": "Présentation",
     "collection": "Collection"
+  },
+  "chart": {
+    "submit": {
+      "title": "Soumettre un Score",
+      "pageTitle": "Soumettre un Score",
+      "pageDescription": "Soumettez votre score pour ce chart",
+      "back": "Retour",
+      "loading": "Chargement des données du chart...",
+      "currentRank": "Rang Actuel",
+      "points": "Points",
+      "platform": "Plateforme",
+      "selectPlatform": "Sélectionner une plateforme",
+      "format": "Format",
+      "modified": "Modifié",
+      "noChanges": "Aucun changement",
+      "submitScore": "Soumettre le Score",
+      "submitting": "Soumission...",
+      "error": {
+        "title": "Erreur",
+        "loadFailed": "Échec du chargement des données du chart"
+      }
+    },
+    "list": {
+      "summary": {
+        "progress": "{0} sur {1} charts modifiés",
+        "submitting": "Soumission...",
+        "submitAll": "Tout Soumettre"
+      },
+      "progress": "Progression",
+      "noModifications": "Aucune modification à soumettre",
+      "submitError": "Erreur lors de la soumission des scores"
+    }
   }
 }
