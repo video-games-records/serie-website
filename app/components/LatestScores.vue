@@ -4,7 +4,7 @@
     
     <div v-if="isLatestScoresLoading" class="space-y-4">
       <div v-for="i in 3" :key="i" class="animate-pulse">
-        <div class="h-20 bg-gray-200 rounded-lg"></div>
+        <div class="h-20 bg-gray-200 rounded-lg" />
       </div>
     </div>
 

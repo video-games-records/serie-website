@@ -5,11 +5,11 @@
   >
     <img 
       v-if="player.avatar"
+      v-show="!showFallback"
       :src="getAvatarUrl()" 
       :alt="player.pseudo"
       class="w-full h-full object-cover"
       @error="showFallback = true"
-      v-show="!showFallback"
     >
     <div 
       v-if="!player.avatar || showFallback"

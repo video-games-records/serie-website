@@ -19,8 +19,9 @@ interface Props {
   fullWidthResponsive?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const _props = withDefaults(defineProps<Props>(), {
   adFormat: 'auto',
+  adLayoutKey: undefined,
   fullWidthResponsive: true
 })
 
