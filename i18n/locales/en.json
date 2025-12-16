@@ -10,7 +10,9 @@
     "subtitle": "Discover our dynamic themes based on subdomains",
     "series_detected": "Series detected",
     "view_records": "View Records",
-    "add_score": "Add Score"
+    "add_score": "Add Score",
+    "latestScores": "Latest Scores",
+    "noLatestScores": "No recent scores found"
   },
   "stats": {
     "title": "Series Statistics",

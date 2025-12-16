@@ -1,4 +1,5 @@
 import type { Game } from './game'
+import type { PlayerChart } from './player-chart'
 
 export interface ApiResponse<T> {
   "@context": string
@@ -9,3 +10,4 @@ export interface ApiResponse<T> {
 }
 
 export type GamesApiResponse = ApiResponse<Game>
+export type LatestScoresApiResponse = ApiResponse<PlayerChart>
