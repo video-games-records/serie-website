@@ -104,6 +104,8 @@
     "login_error_default": "Une erreur est survenue lors de la connexion",
     "logging_in": "Connexion en cours...",
     "login_button": "Se connecter",
+    "no_account": "Vous n'avez pas encore de compte ?",
+    "register_link": "Créer un compte",
     "seo_description": "Connectez-vous à votre compte VideoGamesRecords pour",
     "seo_description_2": "Consultez vos statistiques et records personnels.",
     "og_description": "Page de connexion VideoGamesRecords pour"
