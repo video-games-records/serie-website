@@ -10,7 +10,9 @@
     "subtitle": "Découvrez nos thèmes dynamiques basés sur les sous-domaines",
     "series_detected": "Série détectée",
     "view_records": "Voir les Records",
-    "add_score": "Ajouter un Score"
+    "add_score": "Ajouter un Score",
+    "latestScores": "Derniers Scores",
+    "noLatestScores": "Aucun score récent trouvé"
   },
   "stats": {
     "title": "Statistiques de la série",

@@ -2,15 +2,19 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Game } from '~/types/game'
 import type { Serie } from '~/types/serie'
-import type { GamesApiResponse } from '~/types/api'
+import type { GamesApiResponse, LatestScoresApiResponse } from '~/types/api'
+import type { PlayerChart } from '~/types/player-chart'
 
 export const useSerieStore = defineStore('serie', () => {
     const games = ref<Game[]>([])
     const serie = ref<Serie | null>(null)
+    const latestScores = ref<PlayerChart[]>([])
     const isLoaded = ref(false)
     const isLoading = ref(false)
     const isSerieLoaded = ref(false)
     const isSerieLoading = ref(false)
+    const isLatestScoresLoaded = ref(false)
+    const isLatestScoresLoading = ref(false)
 
     const fetchSerie = async (serieId: number) => {
         if (isSerieLoaded.value) return
@@ -44,22 +48,43 @@ export const useSerieStore = defineStore('serie', () => {
         }
     }
 
+    const fetchLatestScores = async (serieId: number, limit = 3) => {
+        if (isLatestScoresLoaded.value) return
+
+        isLatestScoresLoading.value = true
+        try {
+            const config = useRuntimeConfig()
+            const response = await $fetch<LatestScoresApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/latest-scores?limit=${limit}`)
+            latestScores.value = response["hydra:member"]
+            isLatestScoresLoaded.value = true
+        } catch (error) {
+            console.error('Error fetching latest scores:', error)
+        } finally {
+            isLatestScoresLoading.value = false
+        }
+    }
+
     const fetchAll = async (serieId: number) => {
         await Promise.all([
             fetchSerie(serieId),
-            fetchGames(serieId)
+            fetchGames(serieId),
+            fetchLatestScores(serieId)
         ])
     }
 
     return {
         games,
         serie,
+        latestScores,
         isLoaded,
         isLoading,
         isSerieLoaded,
         isSerieLoading,
+        isLatestScoresLoaded,
+        isLatestScoresLoading,
         fetchSerie,
         fetchGames,
+        fetchLatestScores,
         fetchAll,
     }
 })
