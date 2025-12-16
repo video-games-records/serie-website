@@ -104,6 +104,8 @@
     "login_error_default": "An error occurred during login",
     "logging_in": "Logging in...",
     "login_button": "Sign in",
+    "no_account": "Don't have an account yet?",
+    "register_link": "Create an account",
     "seo_description": "Sign in to your VideoGamesRecords account for",
     "seo_description_2": "Check your personal statistics and records.",
     "og_description": "VideoGamesRecords login page for"
