@@ -14,6 +14,7 @@ export interface Serie {
   primaryColor?: string
   secondaryColor?: string
   accentColor?: string
+  gaId?: string
   links?: SerieLink[]
   // Données de l'API
   status?: "ACTIVE" | "INACTIVE"
