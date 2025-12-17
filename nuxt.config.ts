@@ -51,6 +51,11 @@ export default defineNuxtConfig({
       nuxtEnv: process.env.NUXT_ENV || 'development'
     }
   },
+  nitro: {
+    prerender: {
+      ignore: ['/api/sitemap.xml', '/api/robots.txt']
+    }
+  },
   vite: {
     resolve: {
       alias: {
