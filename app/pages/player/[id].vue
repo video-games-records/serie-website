@@ -71,8 +71,13 @@
         </div>
       </div>
 
+      <!-- Loading player serie stats -->
+      <div v-if="playerSeriePending" class="text-center py-4">
+        <p>{{ $t('player.loading_stats') }}</p>
+      </div>
+
       <!-- Statistics Cards -->
-      <div v-if="playerSerie" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div v-else-if="playerSerie" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         <div class="stat-card">
           <div class="text-2xl font-bold text-primary">{{ playerSerie.rankPointChart }}</div>
           <div class="text-sm opacity-80">{{ $t('player.rank_chart') }}</div>
@@ -100,7 +105,7 @@
       </div>
 
       <!-- Medals Charts Only -->
-      <div v-if="playerSerie" class="card p-6 mb-8">
+      <div v-if="playerSerie && !playerSeriePending" class="card p-6 mb-8">
         <h3 class="text-xl font-bold mb-4">{{ $t('player.medals') }}</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="medal-item">
@@ -170,17 +175,15 @@ const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2
 // Fetch player data
 const { data: player, pending, error } = await useFetchApi<Player>(`/players/${playerId}`)
 
-// Wait for serie detection before fetching serie stats
-const playerSerieData = ref<PlayerSerieRankingApiResponse | null>(null)
-const playerSerie = computed(() => playerSerieData.value?.['hydra:member']?.[0])
-
-// Watch for serie changes and fetch data
-watch(() => currentSerie.value.id, async (newSerieId) => {
-  if (newSerieId) {
-    const { data } = await useFetchApi<PlayerSerieRankingApiResponse>(`/player_series?player=${playerId}&serie=${newSerieId}`)
-    playerSerieData.value = data.value
+// Fetch player serie stats reactively
+const { data: playerSerieData, pending: playerSeriePending } = await useFetchApi<PlayerSerieRankingApiResponse>(
+  computed(() => `/player_series?player=${playerId}&serie=${currentSerie.value?.id || 2}`),
+  {
+    key: computed(() => `player-serie-${playerId}-${currentSerie.value?.id || 2}`)
   }
-}, { immediate: true })
+)
+
+const playerSerie = computed(() => playerSerieData.value?.['hydra:member']?.[0])
 
 // Helper functions
 const { formatDate, formatNumber } = useFormatting()
