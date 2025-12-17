@@ -1,10 +1,10 @@
 import type { PlayerSerieRankingApiResponse } from '@/types'
 
-export const useSerieRanking = (serieId: string | number, maxRank: number = 100) => {
+export const useSerieRanking = (serieId: MaybeRefOrGetter<string | number>, maxRank: number = 100) => {
   const { data: rankingData, pending, error, refresh } = useFetchApi<PlayerSerieRankingApiResponse>(
-    `/series/${serieId}/player-ranking-points?maxRank=${maxRank}`,
+    computed(() => `/series/${toValue(serieId)}/player-ranking-points?maxRank=${maxRank}`),
     {
-      key: `serie-ranking-${serieId}-${maxRank}`
+      key: computed(() => `serie-ranking-${toValue(serieId)}-${maxRank}`)
     }
   )
 

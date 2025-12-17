@@ -146,8 +146,10 @@ const { games, serie, latestScores, isLoading, isSerieLoading, isLatestScoresLoa
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
 const { t } = useI18n()
 
-// Get leaderboard for current serie using composable
-const { rankings: leaderboard, pending: isLeaderboardLoading } = useSerieRanking(currentSerie.value?.id || 2)
+// Get leaderboard for current serie using composable (reactive to serie changes)
+const { rankings: leaderboard, pending: isLeaderboardLoading } = useSerieRanking(
+  computed(() => currentSerie.value?.id || 2)
+)
 
 // SEO
 useHead({
