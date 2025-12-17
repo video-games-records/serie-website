@@ -14,11 +14,35 @@ A Nuxt 4 application for managing video game records with multi-series support a
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20+
 - Symfony API backend running
 
 ### Installation
 
+#### NVM (Node Version Manager)
+```bash
+# Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+
+# Reload shell
+source ~/.bashrc
+
+# Install and use Node.js 20
+nvm install 20
+nvm use 20
+```
+
+#### PM2 (Process Manager)
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Start PM2 on system boot
+pm2 startup
+pm2 save
+```
+
+#### Project Setup
 ```bash
 # Install dependencies
 npm install
