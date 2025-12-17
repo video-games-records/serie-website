@@ -21,6 +21,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#1B4620',
         secondaryColor: '#FFD700',
         accentColor: '#000000',
+        gaId: 'G-FORZA123456',
     },
     'mario-kart': {
         id: 2,
@@ -30,13 +31,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#E60012',
         secondaryColor: '#FFCC00',
         accentColor: '#1F1F1F',
-        links: [
-            {
-                name: 'Official Website',
-                type: 'website',
-                url: 'https://www.nintendo.com/mario-kart/'
-            }
-        ],
+        gaId: 'G-MARIO123456',
     },
     'super-smash-bros': {
         id: 3,
@@ -46,6 +41,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6B00',
         secondaryColor: '#0066FF',
         accentColor: '#FFD700',
+        gaId: 'G-SSB123456',
     },
     'trackmania': {
         id: 7,
@@ -55,6 +51,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF4500',
         secondaryColor: '#32CD32',
         accentColor: '#FFFFFF',
+        gaId: 'G-TM123456',
     },
     'trials': {
         id: 12,
@@ -64,6 +61,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#8B0000',
         secondaryColor: '#FF4500',
         accentColor: '#FFD700',
+        gaId: 'G-TRIALS123456',
     },
     'mario-sonic-olympic': {
         id: 16,
@@ -73,6 +71,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#0080FF',
         secondaryColor: '#FFD700',
         accentColor: '#FF1493',
+        gaId: 'G-MSO123456',
         links: [
             {
                 name: 'Discord Community',
@@ -89,6 +88,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#1E3A8A',
         secondaryColor: '#DC2626',
         accentColor: '#F59E0B',
+        gaId: 'G-GT123456',
     },
     'burnout': {
         id: 36,
@@ -98,6 +98,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6600',
         secondaryColor: '#000000',
         accentColor: '#FFFF00',
+        gaId: 'G-BURNOUT123456',
         links: [
             {
                 name: 'Discord Community',
