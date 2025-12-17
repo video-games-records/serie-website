@@ -44,14 +44,13 @@
       <div class="mb-8">
         <h3 class="text-xl font-bold mb-6">Classement ({{ ranking.length }} joueurs)</h3>
         
-        <div v-if="ranking && ranking.length > 0" class="card overflow-hidden">
+        <div v-if="ranking && ranking.length > 0" class="card overflow-hidden !p-0">
           <!-- Table Header -->
-          <div class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 font-medium text-sm">
+          <div class="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 px-2 py-2 md:px-3 md:py-3 border-b border-gray-600 font-medium text-sm">
             <div class="text-center">Rang</div>
             <div>Joueur</div>
-            <div class="text-center">Temps</div>
-            <div class="text-center">Plateforme</div>
-            <div class="text-center">Statut</div>
+            <div class="text-center">Score</div>
+            <div class="text-center hidden md:block">Plateforme</div>
           </div>
           
           <!-- Table Body -->
@@ -59,7 +58,7 @@
             <div 
               v-for="entry in ranking" 
               :key="entry[0].id"
-              class="grid grid-cols-5 gap-4 p-4 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
+              class="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 px-2 py-2 md:px-3 md:py-3 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
               :class="{
                 'bg-yellow-500 bg-opacity-20': entry[0].rank === 1,
                 'bg-gray-400 bg-opacity-20': entry[0].rank === 2,
@@ -69,13 +68,13 @@
               <!-- Rank -->
               <div class="text-center">
                 <span
-class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
-                      :class="{
-                        'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry[0].rank === 1,
-                        'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry[0].rank === 2,
-                        'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': entry[0].rank === 3,
-                        'bg-gray-100 text-gray-700': entry[0].rank > 3
-                      }">
+                  class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
+                  :class="{
+                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry[0].rank === 1,
+                    'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry[0].rank === 2,
+                    'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': entry[0].rank === 3,
+                    'bg-gray-100 text-gray-700': entry[0].rank > 3
+                  }">
                   {{ entry[0].rank }}
                 </span>
               </div>
@@ -83,6 +82,11 @@ class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font
               <!-- Player -->
               <div class="flex items-center">
                 <PlayerLink :player="entry[0].player" />
+                <span v-if="entry[0].status === 'proved'" class="ml-2 text-green-500" title="Score prouvé">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </span>
               </div>
               
               <!-- Time -->
@@ -91,22 +95,11 @@ class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font
               </div>
               
               <!-- Platform -->
-              <div class="text-center">
+              <div class="text-center hidden md:block">
                 <span v-if="entry[0].platform" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                   {{ entry[0].platform.name }}
                 </span>
                 <span v-else class="opacity-60">-</span>
-              </div>
-              
-              <!-- Status -->
-              <div class="text-center">
-                <span v-if="entry[0].status === 'proved'" class="inline-flex items-center text-green-600">
-                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  Prouvé
-                </span>
-                <span v-else class="text-gray-500">Non prouvé</span>
               </div>
             </div>
           </div>
