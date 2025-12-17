@@ -30,6 +30,13 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#E60012',
         secondaryColor: '#FFCC00',
         accentColor: '#1F1F1F',
+        links: [
+            {
+                name: 'Official Website',
+                type: 'website',
+                url: 'https://www.nintendo.com/mario-kart/'
+            }
+        ],
     },
     'super-smash-bros': {
         id: 3,
@@ -66,6 +73,13 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#0080FF',
         secondaryColor: '#FFD700',
         accentColor: '#FF1493',
+        links: [
+            {
+                name: 'Discord Community',
+                type: 'discord',
+                url: 'https://discord.gg/pXJca8TrnT'
+            }
+        ],
     },
     'gran-turismo': {
         id: 22,
@@ -84,6 +98,18 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6600',
         secondaryColor: '#000000',
         accentColor: '#FFFF00',
+        links: [
+            {
+                name: 'Discord Community',
+                type: 'discord',
+                url: 'https://discord.com/invite/r6z82wBkYd'
+            },
+            {
+                name: 'World Crash Rankings',
+                type: 'website',
+                url: 'https://www.crashmoderankings.com/'
+            }
+        ],
     },
 }
 
