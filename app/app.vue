@@ -20,7 +20,15 @@
       
       <div class="container mx-auto relative z-10 p-6 flex flex-col justify-between h-[192px] md:h-[240px] lg:h-[288px]">
         <!-- Top Navigation -->
-        <nav class="flex justify-end">
+        <nav class="flex justify-between items-center">
+          <!-- Social Links (Left) -->
+          <SocialLinks 
+            :links="currentSerie?.links" 
+            variant="header" 
+            :icon-size="18"
+          />
+          
+          <!-- User Menu (Right) -->
           <div v-if="isAuthenticated" class="flex items-center space-x-3">
             <span class="text-sm">{{ user?.username }}</span>
             <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
