@@ -93,24 +93,42 @@ async function handleLogout() {
   await navigateTo('/')
 }
 
-// Détection de thème avec config complète
+// Détection côté serveur
+if (import.meta.server) {
+  const host = useRequestHeaders()['host'] || ''
+  const { getSerieFromHostname } = await import('@config/series')
+  const detectedSerie = getSerieFromHostname(host)
+  
+  if (detectedSerie) {
+    currentSerie.value = detectedSerie
+    console.log(`🎮 Serie detected (SSR): ${detectedSerie.name} (ID: ${detectedSerie.id})`)
+  }
+}
+
+// Hydratation côté client et chargement du CSS
 onMounted(async () => {
   console.log('🔧 Theme detection starting')
   console.log('🌐 Host:', window.location.hostname)
   
-  // Import config
-  const { getSerieFromHostname } = await import('@config/series')
-  const detectedSerie = getSerieFromHostname(window.location.hostname)
+  // Si pas encore détectée côté client, la détecter
+  if (!currentSerie.value || currentSerie.value.id === 2) { // 2 = fallback Mario Kart
+    const { getSerieFromHostname } = await import('@config/series')
+    const detectedSerie = getSerieFromHostname(window.location.hostname)
+    
+    if (detectedSerie) {
+      currentSerie.value = detectedSerie
+      console.log(`🎮 Serie detected (client): ${detectedSerie.name} (ID: ${detectedSerie.id})`)
+    }
+  }
   
-  if (detectedSerie) {
-    currentSerie.value = detectedSerie
+  // Charger les données et le CSS
+  if (currentSerie.value) {
     serieStore.fetchAll(currentSerie.value.id)
-    console.log(`🎮 Serie detected: ${detectedSerie.name} (ID: ${detectedSerie.id})`)
     
     // Load theme CSS
     try {
-      await import(`@assets/styles/${detectedSerie.theme}.css`)
-      console.log(`✅ Theme CSS loaded: ${detectedSerie.theme}`)
+      await import(`@assets/styles/${currentSerie.value.theme}.css`)
+      console.log(`✅ Theme CSS loaded: ${currentSerie.value.theme}`)
     } catch {
       console.log('❌ Theme CSS failed, using fallback')
       await import('@assets/styles/mario-kart.css')

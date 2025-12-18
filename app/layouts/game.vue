@@ -84,26 +84,18 @@ const gameId = computed(() => {
   return route.params.gameId as string
 })
 
-// Get current serie from state
+// Get current serie from state (already initialized in app.vue)
 const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2 }))
-
-// Initialize serie on client-side if not set
-onMounted(async () => {
-  if (import.meta.client && !currentSerie.value?.id) {
-    const { getSerieFromHostname } = await import('@config/series')
-    const detectedSerie = getSerieFromHostname(window.location.hostname)
-    if (detectedSerie) {
-      currentSerie.value = detectedSerie
-    }
-  }
-})
 
 // Get game info with validation
 const { data: game, pending, error } = await useFetchApi<Game>(`/games/${gameId.value}`, {
+  key: `game-${gameId.value}-${currentSerie.value?.id}`, // Add serie to cache key
   transform: (game: Game) => {
-    // Only validate if serie is initialized (skip validation during SSR or initial load)
-    if (import.meta.client && currentSerie.value?.id && game.serie && game.serie.id !== currentSerie.value?.id) {
-      throw createError({ statusCode: 404, statusMessage: 'Game not found in current serie' })
+    // Validate serie: game must belong to current serie
+    if (currentSerie.value?.id) {
+      if (!game.serie || game.serie.id !== currentSerie.value.id) {
+        throw createError({ statusCode: 404, statusMessage: 'Game not found in current serie' })
+      }
     }
     return game
   }
