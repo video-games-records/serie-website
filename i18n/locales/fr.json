@@ -134,6 +134,17 @@
     "collection": "Collection"
   },
   "chart": {
+    "loading": "Chargement du chart...",
+    "error": "Erreur lors du chargement du chart",
+    "submit_score": "Soumettre un score",
+    "ranking_title": "Classement ({count} joueurs)",
+    "rank": "Rang",
+    "player": "Joueur",
+    "score": "Score",
+    "platform": "Plateforme",
+    "score_proved": "Score prouvé",
+    "no_scores": "Aucun score pour ce chart",
+    "not_found": "Chart non trouvé",
     "submit": {
       "title": "Soumettre un Score",
       "pageTitle": "Soumettre un Score",
@@ -164,5 +175,10 @@
       "noModifications": "Aucune modification à soumettre",
       "submitError": "Erreur lors de la soumission des scores"
     }
+  },
+  "common": {
+    "home": "Accueil",
+    "game": "Jeu",
+    "group": "Groupe"
   }
 }
