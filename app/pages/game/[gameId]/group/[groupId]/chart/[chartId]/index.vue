@@ -1,25 +1,25 @@
 <template>
   <NuxtLayout name="game">
     <div v-if="pending || rankingPending" class="text-center py-8">
-      <p>Chargement du chart...</p>
+      <p>{{ $t('chart.loading') }}</p>
     </div>
     
     <div v-else-if="error || rankingError" class="text-center py-8 text-red-500">
-      <p>Erreur lors du chargement du chart</p>
+      <p>{{ $t('chart.error') }}</p>
     </div>
     
     <div v-else-if="chart">
       <!-- Breadcrumb -->
       <div class="mb-8">
         <nav class="flex items-center gap-2 text-sm">
-          <NuxtLink to="/" class="hover:text-accent">Accueil</NuxtLink>
+          <NuxtLink to="/" class="hover:text-accent">{{ $t('common.home') }}</NuxtLink>
           <span>›</span>
           <NuxtLink :to="`/game/${gameId}`" class="hover:text-accent">
-            {{ game?.name || 'Jeu' }}
+            {{ game?.name || $t('common.game') }}
           </NuxtLink>
           <span>›</span>
           <NuxtLink :to="`/game/${gameId}/group/${groupId}`" class="hover:text-accent">
-            {{ group?.name || 'Groupe' }}
+            {{ group?.name || $t('common.group') }}
           </NuxtLink>
           <span>›</span>
           <span style="color: var(--text-color);">{{ chart.name }}</span>
@@ -28,7 +28,7 @@
       
       
       <!-- Submit Score Button -->
-      <div class="mb-8 text-center">
+      <div v-if="isAuthenticated" class="mb-8 text-center">
         <NuxtLink 
           :to="`/game/${gameId}/group/${groupId}/chart/${chartId}/submit`"
           class="inline-flex items-center px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity"
@@ -36,21 +36,21 @@
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
-          Soumettre un score
+          {{ $t('chart.submit_score') }}
         </NuxtLink>
       </div>
 
       <!-- Ranking Section -->
       <div class="mb-8">
-        <h3 class="text-xl font-bold mb-6">Classement ({{ ranking.length }} joueurs)</h3>
+        <h3 class="text-xl font-bold mb-6">{{ $t('chart.ranking_title', { count: ranking.length }) }}</h3>
         
         <div v-if="ranking && ranking.length > 0" class="card overflow-hidden !p-0">
           <!-- Table Header -->
           <div class="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 px-2 py-2 md:px-3 md:py-3 border-b border-gray-600 font-medium text-sm">
-            <div class="text-center">Rang</div>
-            <div>Joueur</div>
-            <div class="text-center">Score</div>
-            <div class="text-center hidden md:block">Plateforme</div>
+            <div class="text-center">{{ $t('chart.rank') }}</div>
+            <div>{{ $t('chart.player') }}</div>
+            <div class="text-center">{{ $t('chart.score') }}</div>
+            <div class="text-center hidden md:block">{{ $t('chart.platform') }}</div>
           </div>
           
           <!-- Table Body -->
@@ -82,7 +82,7 @@
               <!-- Player -->
               <div class="flex items-center">
                 <PlayerLink :player="entry[0].player" />
-                <span v-if="entry[0].status === 'proved'" class="ml-2 text-green-500" title="Score prouvé">
+                <span v-if="entry[0].status === 'proved'" class="ml-2 text-green-500" :title="$t('chart.score_proved')">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
@@ -106,13 +106,13 @@
         </div>
         
         <div v-else class="card p-8 text-center">
-          <p class="text-lg opacity-80">Aucun score pour ce chart</p>
+          <p class="text-lg opacity-80">{{ $t('chart.no_scores') }}</p>
         </div>
       </div>
     </div>
     
     <div v-else class="text-center py-8">
-      <p>Chart non trouvé</p>
+      <p>{{ $t('chart.not_found') }}</p>
     </div>
   </NuxtLayout>
 </template>
@@ -145,6 +145,7 @@ const ranking = computed(() => {
   return rankingResponse.value?.['hydra:member'] || []
 })
 
+const { isAuthenticated } = useAuth()
 const { t } = useI18n()
 
 // SEO

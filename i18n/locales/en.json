@@ -134,6 +134,17 @@
     "collection": "Collection"
   },
   "chart": {
+    "loading": "Loading chart...",
+    "error": "Error loading chart",
+    "submit_score": "Submit a score",
+    "ranking_title": "Rankings ({count} players)",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score",
+    "platform": "Platform",
+    "score_proved": "Proven score",
+    "no_scores": "No scores for this chart",
+    "not_found": "Chart not found",
     "submit": {
       "title": "Submit Score",
       "pageTitle": "Submit Score",
@@ -164,5 +175,10 @@
       "noModifications": "No modifications to submit",
       "submitError": "Error submitting scores"
     }
+  },
+  "common": {
+    "home": "Home",
+    "game": "Game",
+    "group": "Group"
   }
 }
