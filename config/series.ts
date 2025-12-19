@@ -21,7 +21,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#1B4620',
         secondaryColor: '#FFD700',
         accentColor: '#000000',
-        gaId: 'G-FORZA123456',
+        gaId: 'G-TDRF5XQYD7',
     },
     'mario-kart': {
         id: 2,
@@ -31,7 +31,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#E60012',
         secondaryColor: '#FFCC00',
         accentColor: '#1F1F1F',
-        gaId: 'G-MARIO123456',
+        gaId: 'G-9SVTJ57TD2',
     },
     'super-smash-bros': {
         id: 3,
@@ -41,7 +41,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6B00',
         secondaryColor: '#0066FF',
         accentColor: '#FFD700',
-        gaId: 'G-SSB123456',
+        gaId: 'G-TQ2PXLKVDD',
     },
     'trackmania': {
         id: 7,
@@ -51,7 +51,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF4500',
         secondaryColor: '#32CD32',
         accentColor: '#FFFFFF',
-        gaId: 'G-TM123456',
+        gaId: 'G-7SP41X2YRE',
     },
     'trials': {
         id: 12,
@@ -61,7 +61,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#8B0000',
         secondaryColor: '#FF4500',
         accentColor: '#FFD700',
-        gaId: 'G-TRIALS123456',
+        gaId: 'G-FXE638VR5W',
     },
     'mario-sonic-olympic': {
         id: 16,
@@ -71,7 +71,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#0080FF',
         secondaryColor: '#FFD700',
         accentColor: '#FF1493',
-        gaId: 'G-MSO123456',
+        gaId: 'G-4MFSESL02H',
         links: [
             {
                 name: 'Discord Community',
@@ -88,7 +88,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#1E3A8A',
         secondaryColor: '#DC2626',
         accentColor: '#F59E0B',
-        gaId: 'G-GT123456',
+        gaId: 'G-52XH0KFDDC',
     },
     'burnout': {
         id: 36,
@@ -98,7 +98,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6600',
         secondaryColor: '#000000',
         accentColor: '#FFFF00',
-        gaId: 'G-BURNOUT123456',
+        gaId: 'G-LJQQ24CDKG',
         links: [
             {
                 name: 'Discord Community',
