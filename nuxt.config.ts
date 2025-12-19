@@ -8,16 +8,7 @@ export default defineNuxtConfig({
   modules: [
       '@nuxtjs/tailwindcss',
       '@pinia/nuxt',
-      '@nuxtjs/i18n',
-      [
-        '@nuxtjs/google-adsense',
-        {
-          id: process.env.GOOGLE_ADSENSE_ID,
-          onPageLoad: true,
-          pageLevelAds: true,
-          test: process.env.NUXT_ENV === 'development'
-        }
-      ]
+      '@nuxtjs/i18n'
   ],
   i18n: {
     locales: [
@@ -52,8 +43,63 @@ export default defineNuxtConfig({
     }
   },
   nitro: {
-    prerender: {
-      ignore: ['/api/sitemap.xml', '/api/robots.txt']
+    hooks: {
+      'close'() {
+        const fs = require('fs')
+        const path = require('path')
+        
+        // Check environment
+        const isStaging = process.env.NUXT_ENV === 'staging' || 
+                         process.env.NUXT_ENV === 'development'
+        
+        // Determine the domain for this build
+        const siteUrl = process.env.SITE_URL || 'https://videogamesrecords.com'
+        
+        // Generate robots.txt
+        let robotsContent
+        if (isStaging) {
+          robotsContent = `User-agent: *
+Disallow: /
+
+# This is a staging/development environment
+# No indexing allowed`
+        } else {
+          robotsContent = `User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: /sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important pages
+Allow: /game/
+Allow: /player/
+
+# Crawl delay
+Crawl-delay: 1`
+        }
+        
+        // Generate global sitemap.xml with relative URLs
+        const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>/</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`
+        
+        // Write files to public directory
+        const publicDir = path.join(process.cwd(), '.output', 'public')
+        if (fs.existsSync(publicDir)) {
+          fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsContent)
+          fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent)
+        }
+      }
     }
   },
   vite: {
