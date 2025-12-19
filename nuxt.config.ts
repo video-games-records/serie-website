@@ -44,16 +44,15 @@ export default defineNuxtConfig({
   },
   nitro: {
     hooks: {
-      'close'() {
-        const fs = require('fs')
-        const path = require('path')
+      async 'close'() {
+        const fs = await import('fs')
+        const path = await import('path')
         
         // Check environment
         const isStaging = process.env.NUXT_ENV === 'staging' || 
                          process.env.NUXT_ENV === 'development'
         
-        // Determine the domain for this build
-        const siteUrl = process.env.SITE_URL || 'https://videogamesrecords.com'
+        // Environment-specific content (siteUrl removed as it's not used)
         
         // Generate robots.txt
         let robotsContent
