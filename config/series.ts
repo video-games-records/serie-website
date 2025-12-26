@@ -98,7 +98,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF6600',
         secondaryColor: '#000000',
         accentColor: '#FFFF00',
-        gaId: 'G-LJQQ24CDKG',
+        gaId: 'G-9Q4EFF7VP4',
         links: [
             {
                 name: 'Discord Community',
