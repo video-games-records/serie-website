@@ -45,7 +45,7 @@ steps:
       - ssh-add ~/.ssh/id_ed25519
       - rsync -rav --quiet --exclude='.env' --exclude='node_modules' -e "ssh -p $STAGING_SSH_PORT" .output/ $STAGING_SSH_USER@$STAGING_SSH_HOST:$STAGING_PATH/
       - rsync -rav --quiet -e "ssh -p $STAGING_SSH_PORT" package.json package-lock.json $STAGING_SSH_USER@$STAGING_SSH_HOST:$STAGING_PATH/
-      - ssh -p $STAGING_SSH_PORT $STAGING_SSH_USER@$STAGING_SSH_HOST "cd $STAGING_PATH && npm ci --production && pm2 restart nuxt-app || pm2 start --name nuxt-app node server/index.mjs"
+      - ssh -p $STAGING_SSH_PORT $STAGING_SSH_USER@$STAGING_SSH_HOST "cd $STAGING_PATH && npm ci --production && pm2 restart nuxt-app || pm2 start ecosystem.config.cjs"
     environment:
       SSH_PRIVATE_KEY:
         from_secret: staging_ssh_key
@@ -76,7 +76,7 @@ steps:
       - ssh-add ~/.ssh/id_ed25519
       - rsync -rav --quiet --exclude='.env' --exclude='node_modules' -e "ssh -p $PRODUCTION_SSH_PORT" .output/ $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST:$PRODUCTION_PATH/
       - rsync -rav --quiet -e "ssh -p $PRODUCTION_SSH_PORT" package.json package-lock.json $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST:$PRODUCTION_PATH/
-      - ssh -p $PRODUCTION_SSH_PORT $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST "cd $PRODUCTION_PATH && npm ci --production && pm2 restart nuxt-app || pm2 start --name nuxt-app node server/index.mjs"
+      - ssh -p $PRODUCTION_SSH_PORT $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST "cd $PRODUCTION_PATH && npm ci --production && pm2 restart nuxt-app || pm2 start ecosystem.config.cjs"
     environment:
       SSH_PRIVATE_KEY:
         from_secret: production_ssh_key
