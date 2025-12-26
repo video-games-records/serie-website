@@ -92,11 +92,22 @@ Crawl-delay: 1`
   </url>
 </urlset>`
         
-        // Write files to public directory
-        const publicDir = path.join(process.cwd(), '.output', 'public')
+        // Write files to output directory
+        const outputDir = path.join(process.cwd(), '.output')
+        const publicDir = path.join(outputDir, 'public')
+        
         if (fs.existsSync(publicDir)) {
           fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsContent)
           fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent)
+        }
+        
+        // Copy ecosystem.config.cjs to build output
+        if (fs.existsSync(outputDir)) {
+          const ecosystemSource = path.join(process.cwd(), 'ecosystem.config.cjs')
+          const ecosystemTarget = path.join(outputDir, 'ecosystem.config.cjs')
+          if (fs.existsSync(ecosystemSource)) {
+            fs.copyFileSync(ecosystemSource, ecosystemTarget)
+          }
         }
       }
     }
