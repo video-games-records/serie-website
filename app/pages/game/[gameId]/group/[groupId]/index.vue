@@ -99,13 +99,19 @@ const charts = computed(() => {
 const { t } = useI18n()
 
 // SEO
-useHead({
-  title: computed(() => group.value ? `${group.value.name} - ${game.value?.name} - Records` : 'Groupe - Records'),
-  meta: [
-    {
-      name: 'description',
-      content: computed(() => game.value ? t('meta.game_description', { game: game.value.name }) : '')
-    }
-  ]
+watchEffect(() => {
+  if (group.value && game.value) {
+    const groupData = group.value as Group
+    const gameData = game.value as Game
+    
+    useSeoMeta({
+      title: `${groupData.name} - ${gameData.name} - Records`,
+      description: t('meta.group_description', { 
+        group: groupData.name, 
+        game: gameData.name 
+      }),
+      robots: 'index, follow'
+    })
+  }
 })
 </script>

@@ -91,7 +91,9 @@
   },
   "meta": {
     "home_description": "Découvrez tous les records de {series}. Consultez les classements, temps et scores des meilleurs joueurs de la communauté.",
-    "game_description": "Consultez tous les records du jeu {game}. Découvrez les groupes, records et classements des meilleurs joueurs."
+    "game_description": "Consultez tous les records du jeu {game}. Découvrez les groupes, records et classements des meilleurs joueurs.",
+    "group_description": "Explorez les records du groupe {group} dans {game}. Consultez les classements et records de chaque épreuve.",
+    "chart_description": "Classement du record {chart} dans {group} de {game}. Découvrez les meilleurs scores et temps des joueurs."
   },
   "auth": {
     "login": "Connexion",
