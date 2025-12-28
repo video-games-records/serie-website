@@ -147,14 +147,18 @@ const handleSubmissionSuccess = () => {
 }
 
 // SEO
-useHead({
-  title: computed(() => t('chart.submit.pageTitle')),
-  meta: [
-    {
-      name: 'description',
-      content: computed(() => t('chart.submit.pageDescription'))
-    }
-  ]
+watchEffect(() => {
+  if (chartData.value && groupData.value && gameData.value) {
+    useSeoMeta({
+      title: `${t('chart.submit.title')} - ${chartData.value.name} - ${groupData.value.name} - ${gameData.value.name} - Records`,
+      description: t('meta.chart_description', { 
+        chart: chartData.value.name,
+        group: groupData.value.name, 
+        game: gameData.value.name 
+      }),
+      robots: 'noindex, follow'
+    })
+  }
 })
 
 // Lifecycle

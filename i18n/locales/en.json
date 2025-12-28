@@ -91,7 +91,9 @@
   },
   "meta": {
     "home_description": "Discover all {series} records. Check rankings, times and scores of the best players in the community.",
-    "game_description": "Check all {game} records. Discover groups, records and rankings of the best players."
+    "game_description": "Check all {game} records. Discover groups, records and rankings of the best players.",
+    "group_description": "Explore {group} charts in {game}. Check rankings and records for each challenge.",
+    "chart_description": "Rankings for {chart} chart in {group} from {game}. Discover the best scores and times from players."
   },
   "auth": {
     "login": "Login",

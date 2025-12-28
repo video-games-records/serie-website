@@ -80,13 +80,18 @@ const groups = computed(() => {
 const { t } = useI18n()
 
 // SEO
-useHead({
-  title: computed(() => game.value ? `${game.value.name} - Records` : 'Jeu - Records'),
-  meta: [
-    {
-      name: 'description',
-      content: computed(() => game.value ? t('meta.game_description', { game: game.value.name }) : '')
-    }
-  ]
+watchEffect(() => {
+  if (game.value) {
+    const gameData = game.value as Game
+    
+    useSeoMeta({
+      title: `${gameData.name} - Records`,
+      description: t('meta.game_description', { game: gameData.name }),
+      robots: 'index, follow',
+      ogTitle: `${gameData.name} - Records`,
+      ogDescription: t('meta.game_description', { game: gameData.name }),
+      ogType: 'website'
+    })
+  }
 })
 </script>

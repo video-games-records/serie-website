@@ -117,8 +117,5 @@ const getGameImageUrl = (gameId: number) => {
   return `${baseUrl.replace('/api', '')}/game/${gameId}/picture`
 }
 
-// SEO
-useHead({
-  title: computed(() => game.value ? `${game.value.name} - Records` : 'Jeu - Records')
-})
+// SEO géré par chaque page individuellement
 </script>

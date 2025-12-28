@@ -149,13 +149,21 @@ const { isAuthenticated } = useAuth()
 const { t } = useI18n()
 
 // SEO
-useHead({
-  title: computed(() => chart.value ? `${chart.value.name} - ${group.value?.name} - ${game.value?.name} - Records` : 'Chart - Records'),
-  meta: [
-    {
-      name: 'description',
-      content: computed(() => game.value ? t('meta.game_description', { game: game.value.name }) : '')
-    }
-  ]
+watchEffect(() => {
+  if (chart.value && group.value && game.value) {
+    const chartData = chart.value as Chart
+    const groupData = group.value as Group
+    const gameData = game.value as Game
+    
+    useSeoMeta({
+      title: `${chartData.name} - ${groupData.name} - ${gameData.name} - Records`,
+      description: t('meta.chart_description', { 
+        chart: chartData.name,
+        group: groupData.name, 
+        game: gameData.name 
+      }),
+      robots: 'index, follow'
+    })
+  }
 })
 </script>
