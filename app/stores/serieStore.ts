@@ -38,7 +38,7 @@ export const useSerieStore = defineStore('serie', () => {
         isLoading.value = true
         try {
             const config = useRuntimeConfig()
-            const response = await $fetch<GamesApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/games`)
+            const response = await $fetch<GamesApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/games?order[nbPost]=DESC`)
             games.value = response["hydra:member"]
             isLoaded.value = true
         } catch (error) {
