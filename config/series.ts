@@ -51,7 +51,7 @@ export const SERIES_CONFIG: Record<string, Serie> = {
         primaryColor: '#FF4500',
         secondaryColor: '#32CD32',
         accentColor: '#FFFFFF',
-        gaId: 'G-7SP41X2YRE',
+        gaId: 'G-M3G4JKKCQD',
     },
     'trials': {
         id: 12,
