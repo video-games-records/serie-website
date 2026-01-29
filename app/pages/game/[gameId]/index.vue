@@ -71,7 +71,7 @@ const gameId = route.params.gameId as string
 const { data: game } = await useFetchApi<Game>(`/games/${gameId}`)
 
 // Get groups for this game
-const { data: groupsResponse } = await useFetchApi<GroupsApiResponse>(`/games/${gameId}/groups`)
+const { data: groupsResponse } = await useFetchApi<GroupsApiResponse>(`/games/${gameId}/groups?pagination=false`)
 
 const groups = computed(() => {
   return groupsResponse.value?.['hydra:member'] || []
