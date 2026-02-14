@@ -103,7 +103,7 @@ const loadData = async () => {
         }
       }
     )
-    charts.value = formDataResponse['hydra:member']
+    charts.value = formDataResponse.member
 
     // Load game data (from layout)
     const gameResponse = await $fetch<Game>(

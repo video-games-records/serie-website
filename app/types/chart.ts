@@ -34,14 +34,14 @@ export interface ParseMaskItem {
 export interface ChartsApiResponse {
   "@context": string
   "@id": string
-  "@type": "hydra:Collection"
-  "hydra:totalItems": number
-  "hydra:member": Chart[]
-  "hydra:search": {
+  "@type": "Collection"
+  totalItems: number
+  member: Chart[]
+  search: {
     "@type": string
-    "hydra:template": string
-    "hydra:variableRepresentation": string
-    "hydra:mapping": Array<{
+    template: string
+    variableRepresentation: string
+    mapping: Array<{
       "@type": string
       variable: string
       property: string

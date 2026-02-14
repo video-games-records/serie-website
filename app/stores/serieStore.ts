@@ -3,12 +3,12 @@ import { ref } from 'vue'
 import type { Game } from '~/types/game'
 import type { Serie } from '~/types/serie'
 import type { GamesApiResponse, LatestScoresApiResponse } from '~/types/api'
-import type { PlayerChart } from '~/types/player-chart'
+import type { LatestScore } from '~/types/latest-score'
 
 export const useSerieStore = defineStore('serie', () => {
     const games = ref<Game[]>([])
     const serie = ref<Serie | null>(null)
-    const latestScores = ref<PlayerChart[]>([])
+    const latestScores = ref<LatestScore[]>([])
     const isLoaded = ref(false)
     const isLoading = ref(false)
     const isSerieLoaded = ref(false)
@@ -38,8 +38,8 @@ export const useSerieStore = defineStore('serie', () => {
         isLoading.value = true
         try {
             const config = useRuntimeConfig()
-            const response = await $fetch<GamesApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/games?order[nbPost]=DESC`)
-            games.value = response["hydra:member"]
+            const response = await $fetch<GamesApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/games`)
+            games.value = response.member
             isLoaded.value = true
         } catch (error) {
             console.error('Error fetching games:', error)
@@ -55,7 +55,7 @@ export const useSerieStore = defineStore('serie', () => {
         try {
             const config = useRuntimeConfig()
             const response = await $fetch<LatestScoresApiResponse>(`${config.public.apiBaseUrl}/series/${serieId}/latest-scores?limit=${limit}`)
-            latestScores.value = response["hydra:member"]
+            latestScores.value = response.member
             isLatestScoresLoaded.value = true
         } catch (error) {
             console.error('Error fetching latest scores:', error)

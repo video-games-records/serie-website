@@ -30,28 +30,23 @@ export interface PlayerChartLib {
   '@id': string
   '@type': string
   id: number
-  value: string
-  libChart: ChartLib
+  libChartId: number
+  value: string | null
   parseValue: Array<{
     value: string
   }>
-  formatValue: string
 }
 
 export interface PlayerChart {
   '@id': string
   '@type': string
   id: number
-  rank: number
+  rank: number | null
   pointChart: number
-  dateInvestigation: string | null
-  chart: string
   status: PlayerChartStatus
-  platform: string
+  platform: string | null
+  lastUpdate: string | null
   libs: PlayerChartLib[]
-  player: string
-  nbEqual: number
-  lastUpdate: string
 }
 
 export interface Group {
@@ -70,33 +65,20 @@ export interface ChartFormData {
   '@id': string
   '@type': string
   id: number
-  isProofVideoOnly: boolean
-  group?: Group
-  libs: ChartLib[]
-  playerCharts: PlayerChart[]
-  slug: string
-  nbPost: number
-  isDlc: boolean
   name: string
+  slug: string
+  isProofVideoOnly: boolean
+  libs: ChartLib[]
+  playerChart: PlayerChart
+  group: Group | null
 }
 
 export interface FormDataResponse {
   '@context': string
   '@id': string
   '@type': string
-  'hydra:totalItems': number
-  'hydra:member': ChartFormData[]
-  'hydra:search': {
-    '@type': string
-    'hydra:template': string
-    'hydra:variableRepresentation': string
-    'hydra:mapping': Array<{
-      '@type': string
-      variable: string
-      property: string
-      required: boolean
-    }>
-  }
+  totalItems: number
+  member: ChartFormData[]
 }
 
 export interface SubmissionResponse {

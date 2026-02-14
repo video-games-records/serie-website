@@ -37,7 +37,7 @@
             
             <div class="flex items-center justify-between">
               <div class="font-mono text-lg font-bold text-primary">
-                {{ score.libs[0]?.formatValue || score.libs[0]?.value }}
+                {{ score.values[0]?.value }}
               </div>
               <div class="text-xs text-gray-500">
                 {{ formatDate(score.lastUpdate) }}
@@ -51,28 +51,10 @@
 </template>
 
 <script setup lang="ts">
+import type { LatestScore } from '~/types/latest-score'
+
 interface Props {
-  latestScores: Array<{
-    id: number
-    rank: number
-    player: {
-      pseudo: string
-    }
-    chart: {
-      name: string
-      group: {
-        name: string
-        game: {
-          name: string
-        }
-      }
-    }
-    libs: Array<{
-      value: string
-      formatValue?: string
-    }>
-    lastUpdate: string
-  }>
+  latestScores: LatestScore[]
   isLatestScoresLoading: boolean
 }
 

@@ -68,9 +68,9 @@ import { ref, reactive, computed, watch, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useScoreSubmission } from '~/composables/useScoreSubmission'
 import PlayerChartForm from './PlayerChartForm.vue'
-import type { 
+import type {
   ChartFormData,
-  PlayerChart as SubmissionPlayerChart 
+  PlayerChart
 } from '~/types/score-submission'
 import type { Game } from '~/types/game'
 import type { ComputedRef } from 'vue'
@@ -128,10 +128,10 @@ const handleChartChange = (index: number) => {
   modifiedCharts.value.add(index)
 }
 
-const handleChartSubmitted = (index: number, data: SubmissionPlayerChart) => {
+const handleChartSubmitted = (index: number, data: PlayerChart) => {
   // Update local chart data
   if (data) {
-    localCharts.value[index].playerCharts[0] = data
+    localCharts.value[index].playerChart = data
   }
 
   // Remove from modified charts

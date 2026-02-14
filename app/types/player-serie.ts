@@ -1,45 +1,51 @@
-import type { Player } from './player'
-import type { Serie } from './serie'
-
-export interface PlayerSerie {
+export interface PlayerSerieRanking {
   '@id': string
-  '@type': string
-  player?: Player
-  serie?: Serie
-  pointChartWithoutDlc: number
+  '@type': 'PlayerRanking'
+  id: number
+  rank: number
   pointChart: number
-  pointGame: number
-  lastUpdate?: string
   nbChart: number
-  nbChartWithoutDlc: number
   nbChartProven: number
-  nbChartProvenWithoutDlc: number
-  nbGame: number
-  rankMedal: number
-  chartRank0: number
-  chartRank1: number
-  chartRank2: number
-  chartRank3: number
-  chartRank4: number
-  chartRank5: number
-  rankPointChart: number
+  platinum: number
+  gold: number
+  silver: number
+  bronze: number
+  player: {
+    id: number
+    pseudo: string
+    slug: string
+    country: {
+      id: number
+      name: string
+      codeIso2: string
+    } | null
+    team: {
+      id: number
+      name: string
+      slug: string
+    } | null
+  }
 }
 
 export interface PlayerSerieRankingApiResponse {
   '@context': string
   '@id': string
   '@type': string
-  'hydra:totalItems': number
-  'hydra:member': PlayerSerie[]
-  'hydra:search': {
-    '@type': string
-    'hydra:template': string
-    'hydra:variableRepresentation': string
-    'hydra:mapping': Array<{
-      '@type': string
-      variable: string
-      property: string
-      required: boolean
-    }>
-  }
+  totalItems: number
+  member: PlayerSerieRanking[]
+}
+
+export interface PlayerSerieDTO {
+  '@context': string
+  '@id': string
+  '@type': string
+  platinum: number
+  gold: number
+  silver: number
+  bronze: number
+  rank: number
+  pointChart: number
+  nbChart: number
+  nbChartProven: number
+  nbGame: number
 }
