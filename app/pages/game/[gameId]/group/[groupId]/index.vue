@@ -93,7 +93,7 @@ const { data: group, pending, error } = await useFetchApi<Group>(`/groups/${grou
 const { data: chartsResponse } = await useFetchApi<ChartsApiResponse>(`/groups/${groupId}/charts`)
 
 const charts = computed(() => {
-  return chartsResponse.value?.['hydra:member'] || []
+  return chartsResponse.value?.member || []
 })
 
 const { t } = useI18n()

@@ -12,9 +12,6 @@
         <span v-if="chart.isProofVideoOnly" class="px-2 py-1 bg-yellow-500 bg-opacity-20 text-yellow-800 text-xs rounded">
           Proof Required
         </span>
-        <span v-if="chart.isDlc" class="px-2 py-1 bg-blue-500 bg-opacity-20 text-blue-800 text-xs rounded">
-          DLC
-        </span>
       </div>
     </div>
 
@@ -83,9 +80,9 @@
 <script setup lang="ts">
 import { ref, computed, reactive, watch, nextTick } from 'vue'
 import { useScoreSubmission } from '~/composables/useScoreSubmission'
-import type { 
-  ChartFormData, 
-  PlayerChart as SubmissionPlayerChart
+import type {
+  ChartFormData,
+  PlayerChart
 } from '~/types/score-submission'
 import type { Game } from '~/types/game'
 
@@ -104,13 +101,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   change: []
-  submitted: [data: SubmissionPlayerChart]
+  submitted: [data: PlayerChart]
 }>()
 
 const { submitPlayerChart } = useScoreSubmission()
 
 // Local state
-const playerChart = computed(() => props.chart.playerCharts[0])
+const playerChart = computed(() => props.chart.playerChart)
 const isSubmitting = ref(false)
 const submitMessage = ref<string | null>(null)
 const submitSuccess = ref(false)
@@ -121,11 +118,10 @@ const formData = reactive(
   props.chart.libs.map((lib, libIndex) => ({
     id: playerChart.value?.libs[libIndex]?.id || -1,
     value: '',
-    libChart: lib,
-    parseValue: lib.type.parseMask.map((element, index) => ({ 
-      value: playerChart.value?.libs[libIndex]?.parseValue[index]?.value || '' 
-    })),
-    formatValue: playerChart.value?.libs[libIndex]?.formatValue || ''
+    libChartId: lib.id,
+    parseValue: lib.type.parseMask.map((element, index) => ({
+      value: playerChart.value?.libs[libIndex]?.parseValue[index]?.value || ''
+    }))
   }))
 )
 
@@ -135,9 +131,8 @@ const initializeFormData = () => {
     playerChart.value.libs.forEach((playerLib, index) => {
       if (formData[index]) {
         formData[index].id = playerLib.id
-        formData[index].value = playerLib.value
+        formData[index].value = playerLib.value || ''
         formData[index].parseValue = [...playerLib.parseValue]
-        formData[index].formatValue = playerLib.formatValue
       }
     })
   }
@@ -178,26 +173,6 @@ const getInputClasses = (size: number, libIndex: number) => {
   return `${width} px-2 py-1 border border-gray-400 rounded text-center bg-white text-gray-900 focus:border-accent focus:ring-1 focus:ring-accent`
 }
 
-const getFormattedValue = (libIndex: number) => {
-  const lib = formData[libIndex]
-  if (!lib || lib.parseValue.every(el => el.value === '')) return ''
-  
-  const mask = props.chart.libs[libIndex]?.type.parseMask
-  if (!mask) return ''
-  
-  let result = ''
-  
-  mask.forEach((element, index) => {
-    const value = lib.parseValue[index]?.value || ''
-    result += value
-    if (element.suffixe && (index < mask.length - 1 || value)) {
-      result += element.suffixe
-    }
-  })
-  
-  return result
-}
-
 const handleInputChange = () => {
   emit('change')
 }
@@ -210,36 +185,25 @@ const submitScore = async () => {
 
   try {
     // Préparer les données du PlayerChart
-    const updatedPlayerChart: SubmissionPlayerChart = {
-      '@id': playerChart.value['@id'] || '',
-      '@type': 'PlayerChart',
-      id: playerChart.value.id,
-      rank: playerChart.value.rank,
-      pointChart: playerChart.value.pointChart,
-      dateInvestigation: playerChart.value.dateInvestigation,
-      chart: playerChart.value.chart,
-      player: playerChart.value.player,
-      status: playerChart.value.status,
-      platform: selectedPlatform.value,
-      nbEqual: playerChart.value.nbEqual,
-      lastUpdate: playerChart.value.lastUpdate,
-      libs: formData.map((lib, index) => ({
-        '@id': lib.id > 0 ? `/api/player_chart_libs/${lib.id}` : '',
-        '@type': 'PlayerChartLib',
+    const updatedPlayerChart: PlayerChart = {
+      ...playerChart.value,
+      platform: selectedPlatform.value || null,
+      libs: formData.map((lib) => ({
+        '@id': '',
+        '@type': 'PlayerChartLibFormDTO',
         id: lib.id,
-        value: lib.parseValue.map(el => el.value).join(''),
-        libChart: lib.libChart,
-        parseValue: lib.parseValue,
-        formatValue: getFormattedValue(index)
+        libChartId: lib.libChartId,
+        value: lib.parseValue.map(el => el.value).join('') || null,
+        parseValue: lib.parseValue
       }))
     }
 
-    const result = await submitPlayerChart(updatedPlayerChart)
-    
+    const result = await submitPlayerChart(props.chart.id, updatedPlayerChart)
+
     if (result.success) {
       submitMessage.value = result.message
       submitSuccess.value = true
-      emit('submitted', result.data as SubmissionPlayerChart)
+      emit('submitted', updatedPlayerChart)
     } else {
       submitMessage.value = result.message
       submitSuccess.value = false

@@ -2,8 +2,7 @@ import { ref, computed } from 'vue'
 import type {
   ChartFormData,
   SubmissionResponse,
-  PlayerChartLib as SubmissionPlayerChartLib,
-  PlayerChart as SubmissionPlayerChart,
+  PlayerChart,
   ChartSubmissionData
 } from '~/types/score-submission'
 
@@ -16,58 +15,39 @@ export const useScoreSubmission = () => {
   const chartsToUpdate = ref(0)
   const chartsUpdated = ref(0)
 
+  // Construire le payload pour un chart
+  const buildChartPayload = (chartId: number, playerChart: PlayerChart) => ({
+    id: chartId,
+    playerChart: {
+      platform: playerChart.platform,
+      libs: playerChart.libs.map(lib => ({
+        libChartId: lib.libChartId,
+        parseValue: lib.parseValue
+      }))
+    }
+  })
+
   // Soumission d'un score pour un chart spécifique
-  const submitPlayerChart = async (playerChart: SubmissionPlayerChart): Promise<SubmissionResponse> => {
+  const submitPlayerChart = async (chartId: number, playerChart: PlayerChart): Promise<SubmissionResponse> => {
     isSubmitting.value = true
     error.value = null
 
     try {
-      // Get authentication token
       const { token } = useAuth()
-      
+
       if (!token.value) {
         throw new Error('Authentication required')
       }
 
-      // Préparer les données selon le format attendu par l'API
-      const payload = JSON.parse(JSON.stringify(playerChart))
-
-      // Remplacer les objets libChart par leurs URLs
-      payload.libs.forEach((lib: SubmissionPlayerChartLib) => {
-        lib.libChart = lib.libChart['@id']
-      })
-
-      let response
       const config = useRuntimeConfig()
-      const headers = {
-        'Authorization': `Bearer ${token.value}`,
-        'Content-Type': 'application/json'
-      }
-
-      // Vérifier si c'est un nouveau score ou une mise à jour
-      if (isNewPlayerChart(playerChart)) {
-        // Nouveau score
-        delete payload.id
-        delete payload['@id']
-        payload.libs.forEach((lib: SubmissionPlayerChartLib) => {
-          delete lib.id
-          lib.value = '0'
-          delete lib['@id']
-        })
-
-        response = await $fetch(`${config.public.apiBaseUrl}/player_charts`, {
-          method: 'POST',
-          headers,
-          body: payload
-        })
-      } else {
-        // Mise à jour
-        response = await $fetch(`${config.public.apiBaseUrl}/player_charts/${playerChart.id}`, {
-          method: 'PUT',
-          headers,
-          body: payload
-        })
-      }
+      const response = await $fetch(`${config.public.apiBaseUrl}/player-charts/bulk-upsert`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token.value}`,
+          'Content-Type': 'application/json'
+        },
+        body: { playerCharts: [buildChartPayload(chartId, playerChart)] }
+      })
 
       chartsUpdated.value++
 
@@ -105,8 +85,7 @@ export const useScoreSubmission = () => {
 
       // Filtrer les charts à soumettre
       const chartsToSubmit = modifiedCharts
-        .filter(({ isModified, chart }) => isModified && !isNullScore(chart.playerCharts[0]))
-        .map(({ chart }) => chart.playerCharts[0])
+        .filter(({ isModified, chart }) => isModified && !isNullScore(chart.playerChart))
 
       if (chartsToSubmit.length === 0) {
         return {
@@ -116,31 +95,13 @@ export const useScoreSubmission = () => {
       }
 
       // Préparer les données pour l'API bulk
-      const playerChartsForAPI = chartsToSubmit.map(playerChart => {
-        const payload = JSON.parse(JSON.stringify(playerChart))
-
-        // Remplacer les objets libChart par leurs URLs
-        payload.libs.forEach((lib: SubmissionPlayerChartLib) => {
-          lib.libChart = lib.libChart['@id']
-        })
-
-        // Si c'est un nouveau PlayerChart, nettoyer les IDs
-        if (isNewPlayerChart(playerChart)) {
-          delete payload.id
-          delete payload['@id']
-          payload.libs.forEach((lib: SubmissionPlayerChartLib) => {
-            delete lib.id
-            lib.value = '0'
-            delete lib['@id']
-          })
-        }
-
-        return payload
-      })
+      const playerChartsForAPI = chartsToSubmit.map(({ chart }) =>
+        buildChartPayload(chart.id, chart.playerChart)
+      )
 
       // Appel à l'API bulk
       const config = useRuntimeConfig()
-      const result = await $fetch(`${config.public.apiBaseUrl}/player_charts/bulk`, {
+      const result = await $fetch(`${config.public.apiBaseUrl}/player-charts/bulk-upsert`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token.value}`,
@@ -169,47 +130,8 @@ export const useScoreSubmission = () => {
     }
   }
 
-  // Soumission de tous les charts modifiés (méthode avec requêtes individuelles)
-  const submitAllCharts = async (modifiedCharts: ChartSubmissionData[]): Promise<void> => {
-    chartsUpdated.value = 0
-
-    // Filtrer les charts à soumettre
-    const chartsToSubmit = modifiedCharts
-      .filter(({ isModified, chart }) => isModified && !isNullScore(chart.playerCharts[0]))
-      .map(({ chart }) => chart.playerCharts[0])
-
-    // Soumission par batch pour éviter les deadlocks
-    const BATCH_SIZE = 5
-    for (let i = 0; i < chartsToSubmit.length; i += BATCH_SIZE) {
-      const batch = chartsToSubmit.slice(i, i + BATCH_SIZE)
-      
-      // Traiter le batch en parallèle avec un délai entre chaque requête
-      const promises = batch.map((playerChart, index) => 
-        new Promise<void>(resolve => {
-          setTimeout(async () => {
-            await submitPlayerChart(playerChart)
-            resolve()
-          }, index * 100) // Délai de 100ms entre chaque requête
-        })
-      )
-      
-      // Attendre que toutes les requêtes du batch soient terminées
-      await Promise.all(promises)
-      
-      // Pause entre les batches pour réduire la charge sur la DB
-      if (i + BATCH_SIZE < chartsToSubmit.length) {
-        await new Promise(resolve => setTimeout(resolve, 500))
-      }
-    }
-  }
-
-  // Vérifier si c'est un nouveau PlayerChart
-  const isNewPlayerChart = (playerChart: SubmissionPlayerChart): boolean => {
-    return playerChart.id === -1
-  }
-
   // Vérifier si le score est vide
-  const isNullScore = (playerChart: SubmissionPlayerChart): boolean => {
+  const isNullScore = (playerChart: PlayerChart): boolean => {
     return playerChart.libs.every(lib =>
       lib.parseValue.every(element => element.value === '')
     )
@@ -238,9 +160,7 @@ export const useScoreSubmission = () => {
 
     // Methods
     submitPlayerChart,
-    submitAllCharts,
     submitAllChartsBulk,
-    isNewPlayerChart,
     isNullScore,
     reset,
     addChartToUpdate,

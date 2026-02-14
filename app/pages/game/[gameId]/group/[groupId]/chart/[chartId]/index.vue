@@ -55,49 +55,44 @@
           
           <!-- Table Body -->
           <div>
-            <div 
-              v-for="entry in ranking" 
-              :key="entry[0].id"
+            <div
+              v-for="entry in ranking"
+              :key="entry.id"
               class="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-4 px-2 py-2 md:px-3 md:py-3 border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors items-center"
               :class="{
-                'bg-yellow-500 bg-opacity-20': entry[0].rank === 1,
-                'bg-gray-400 bg-opacity-20': entry[0].rank === 2,
-                'bg-amber-600 bg-opacity-20': entry[0].rank === 3
+                'bg-yellow-500 bg-opacity-20': entry.rank === 1,
+                'bg-gray-400 bg-opacity-20': entry.rank === 2,
+                'bg-amber-600 bg-opacity-20': entry.rank === 3
               }"
             >
               <!-- Rank -->
               <div class="text-center">
                 <span
-                  class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold" 
+                  class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold"
                   :class="{
-                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry[0].rank === 1,
-                    'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry[0].rank === 2,
-                    'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': entry[0].rank === 3,
-                    'bg-gray-100 text-gray-700': entry[0].rank > 3
+                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': entry.rank === 1,
+                    'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': entry.rank === 2,
+                    'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': entry.rank === 3,
+                    'bg-gray-100 text-gray-700': entry.rank > 3
                   }">
-                  {{ entry[0].rank }}
+                  {{ entry.rank }}
                 </span>
               </div>
-              
+
               <!-- Player -->
               <div class="flex items-center">
-                <PlayerLink :player="entry[0].player" />
-                <span v-if="entry[0].status === 'proved'" class="ml-2 text-green-500" :title="$t('chart.score_proved')">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                </span>
+                <PlayerLink :player="entry.player" />
               </div>
-              
-              <!-- Time -->
+
+              <!-- Score/Time -->
               <div class="text-center font-mono font-bold">
-                {{ entry.values[0] }}
+                {{ entry.values[0]?.value }}
               </div>
-              
+
               <!-- Platform -->
               <div class="text-center hidden md:block">
-                <span v-if="entry[0].platform" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                  {{ entry[0].platform.name }}
+                <span v-if="entry.platform" class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  {{ entry.platform.name }}
                 </span>
                 <span v-else class="opacity-60">-</span>
               </div>
@@ -118,9 +113,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Chart, PlayerRankingResponse } from '@types/chart'
-import type { Group } from '@types/group'
-import type { Game } from '@types/game'
+import type { Chart } from '~/types/chart'
+import type { PlayerRankingResponse } from '~/types/player-chart'
+import type { Group } from '~/types/group'
+import type { Game } from '~/types/game'
 
 const route = useRoute()
 
@@ -142,7 +138,7 @@ const { data: chart, pending, error } = await useFetchApi<Chart>(`/charts/${char
 const { data: rankingResponse, pending: rankingPending, error: rankingError } = await useFetchApi<PlayerRankingResponse>(`/charts/${chartId}/player-ranking`)
 
 const ranking = computed(() => {
-  return rankingResponse.value?.['hydra:member'] || []
+  return rankingResponse.value?.member || []
 })
 
 const { isAuthenticated } = useAuth()

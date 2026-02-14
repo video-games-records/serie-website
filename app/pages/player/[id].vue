@@ -77,30 +77,22 @@
       </div>
 
       <!-- Statistics Cards -->
-      <div v-else-if="playerSerie" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div v-else-if="playerSerie" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="stat-card">
-          <div class="text-2xl font-bold text-primary">{{ playerSerie.rankPointChart }}</div>
+          <div class="text-2xl font-bold text-primary">{{ playerSerie.rank }}</div>
           <div class="text-sm opacity-80">{{ $t('player.rank_chart') }}</div>
-        </div>
-        <div class="stat-card">
-          <div class="text-2xl font-bold text-secondary">{{ playerSerie.rankMedal }}</div>
-          <div class="text-sm opacity-80">{{ $t('player.rank_medal') }}</div>
         </div>
         <div class="stat-card">
           <div class="text-2xl font-bold text-accent">{{ formatNumber(playerSerie.pointChart) }}</div>
           <div class="text-sm opacity-80">{{ $t('player.points_chart') }}</div>
         </div>
         <div class="stat-card">
-          <div class="text-2xl font-bold text-primary">{{ formatNumber(playerSerie.pointGame) }}</div>
-          <div class="text-sm opacity-80">{{ $t('player.points_game') }}</div>
-        </div>
-        <div class="stat-card">
           <div class="text-2xl font-bold text-secondary">{{ playerSerie.nbChart }}</div>
           <div class="text-sm opacity-80">{{ $t('player.nb_charts') }}</div>
         </div>
         <div class="stat-card">
-          <div class="text-2xl font-bold text-accent">{{ playerSerie.nbGame }}</div>
-          <div class="text-sm opacity-70">{{ $t('player.nb_games') }}</div>
+          <div class="text-2xl font-bold text-primary">{{ playerSerie.nbChartProven }}</div>
+          <div class="text-sm opacity-80">{{ $t('player.nb_charts_proven') }}</div>
         </div>
       </div>
 
@@ -111,28 +103,28 @@
           <div class="medal-item">
             <span class="medal platinum">🏆</span>
             <div>
-              <div class="font-bold">{{ playerSerie.chartRank0 }}</div>
+              <div class="font-bold">{{ playerSerie.platinum }}</div>
               <div class="text-sm opacity-80">{{ $t('player.platinum_charts') }}</div>
             </div>
           </div>
           <div class="medal-item">
             <span class="medal gold">🥇</span>
             <div>
-              <div class="font-bold">{{ playerSerie.chartRank1 }}</div>
+              <div class="font-bold">{{ playerSerie.gold }}</div>
               <div class="text-sm opacity-80">{{ $t('player.gold_charts') }}</div>
             </div>
           </div>
           <div class="medal-item">
             <span class="medal silver">🥈</span>
             <div>
-              <div class="font-bold">{{ playerSerie.chartRank2 }}</div>
+              <div class="font-bold">{{ playerSerie.silver }}</div>
               <div class="text-sm opacity-80">{{ $t('player.silver_charts') }}</div>
             </div>
           </div>
           <div class="medal-item">
             <span class="medal bronze">🥉</span>
             <div>
-              <div class="font-bold">{{ playerSerie.chartRank3 }}</div>
+              <div class="font-bold">{{ playerSerie.bronze }}</div>
               <div class="text-sm opacity-80">{{ $t('player.bronze_charts') }}</div>
             </div>
           </div>
@@ -164,7 +156,7 @@
 
 <script setup lang="ts">
 import type { Player } from '~/types/player'
-import type { PlayerSerieRankingApiResponse } from '~/types/player-serie'
+import type { PlayerSerieDTO } from '~/types/player-serie'
 
 const route = useRoute()
 const playerId = route.params.id as string
@@ -176,14 +168,14 @@ const currentSerie = useState('currentSerie', () => ({ name: 'Mario Kart', id: 2
 const { data: player, pending, error } = await useFetchApi<Player>(`/players/${playerId}`)
 
 // Fetch player serie stats reactively
-const { data: playerSerieData, pending: playerSeriePending } = await useFetchApi<PlayerSerieRankingApiResponse>(
-  computed(() => `/player_series?player=${playerId}&serie=${currentSerie.value?.id || 2}`),
+const { data: playerSerieData, pending: playerSeriePending } = await useFetchApi<PlayerSerieDTO>(
+  computed(() => `/players/${playerId}/series/${currentSerie.value?.id || 2}`),
   {
     key: computed(() => `player-serie-${playerId}-${currentSerie.value?.id || 2}`)
   }
 )
 
-const playerSerie = computed(() => playerSerieData.value?.['hydra:member']?.[0])
+const playerSerie = computed(() => playerSerieData.value)
 
 // Helper functions
 const { formatDate, formatNumber } = useFormatting()
@@ -199,7 +191,7 @@ useHead({
     {
       name: 'description',
       content: computed(() => player.value && playerSerie.value ? 
-        `Profil de ${player.value.pseudo} sur VideoGamesRecords. Rang: ${playerSerie.value.rankPointChart}, Points: ${formatNumber(playerSerie.value.pointChart)}, Records: ${playerSerie.value.nbChart}` :
+        `Profil de ${player.value.pseudo} sur VideoGamesRecords. Rang: ${playerSerie.value.rank}, Points: ${formatNumber(playerSerie.value.pointChart)}, Records: ${playerSerie.value.nbChart}` :
         'Profil joueur VideoGamesRecords'
       )
     },

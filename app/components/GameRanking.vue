@@ -17,67 +17,61 @@
     </div>
     
     <div v-else-if="rankings && rankings.length > 0" class="rounded-lg shadow-lg border overflow-hidden" style="background-color: var(--card-bg, white); border-color: var(--border-color, #e5e7eb); color: var(--text-color, #1f2937);">
-      <!-- Table Header - Mobile: 3 cols, Desktop: 5 cols -->
-      <div class="grid grid-cols-3 md:grid-cols-5 gap-1 md:gap-4 px-1 py-2 md:p-4 border-b border-gray-600 font-medium text-sm">
+      <!-- Table Header - Mobile: 3 cols, Desktop: 4 cols -->
+      <div class="grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 px-1 py-2 md:p-4 border-b border-gray-600 font-medium text-sm">
         <div class="text-center">{{ $t('ranking.rank') }}</div>
         <div class="pl-1">{{ $t('ranking.player') }}</div>
         <div class="text-center">{{ $t('ranking.points_chart') }}</div>
         <div class="text-center hidden md:block">{{ $t('ranking.medals') }}</div>
-        <div class="text-center hidden md:block">{{ $t('ranking.last_update') }}</div>
       </div>
       
       <!-- Table Body -->
       <div>
-        <div 
-          v-for="playerGame in rankings" 
+        <div
+          v-for="playerGame in rankings"
           :key="playerGame.player.id"
           class="border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors"
           :class="{
-            'bg-yellow-500 bg-opacity-20': playerGame.rankPointChart === 1,
-            'bg-gray-400 bg-opacity-20': playerGame.rankPointChart === 2,
-            'bg-amber-600 bg-opacity-20': playerGame.rankPointChart === 3
+            'bg-yellow-500 bg-opacity-20': playerGame.rank === 1,
+            'bg-gray-400 bg-opacity-20': playerGame.rank === 2,
+            'bg-amber-600 bg-opacity-20': playerGame.rank === 3
           }"
         >
-          <div class="grid grid-cols-3 md:grid-cols-5 gap-1 md:gap-4 px-1 py-2 md:p-4 items-center">
+          <div class="grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 px-1 py-2 md:p-4 items-center">
             <!-- Rank -->
             <div class="text-center">
-              <span 
+              <span
                 class="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full text-xs md:text-sm font-bold"
                 :class="{
-                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerGame.rankPointChart === 1,
-                  'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerGame.rankPointChart === 2,
-                  'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': playerGame.rankPointChart === 3,
-                  'bg-gray-100 text-gray-700': playerGame.rankPointChart > 3
+                  'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerGame.rank === 1,
+                  'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerGame.rank === 2,
+                  'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': playerGame.rank === 3,
+                  'bg-gray-100 text-gray-700': playerGame.rank > 3
                 }"
               >
-                {{ playerGame.rankPointChart }}
+                {{ playerGame.rank }}
               </span>
             </div>
-            
+
             <!-- Player -->
             <div class="flex items-center min-w-0 pl-1">
               <PlayerLink :player="playerGame.player" class="truncate" />
             </div>
-            
+
             <!-- Chart Points -->
             <div class="text-center">
               <span class="font-medium text-xs md:text-base">{{ playerGame.pointChart.toLocaleString() }}</span>
             </div>
-            
-            <!-- Médailles - Hidden on mobile -->
+
+            <!-- Medals - Hidden on mobile -->
             <div class="text-center hidden md:block">
               <div class="flex items-center justify-center gap-1 text-sm">
-                <span class="text-purple-300 font-medium" :title="$t('ranking.medals_platinum')">{{ playerGame.chartRank0 }}</span>
-                <span class="text-yellow-400 font-medium" :title="$t('ranking.medals_gold')">{{ playerGame.chartRank1 }}</span>
-                <span class="text-gray-400 font-medium" :title="$t('ranking.medals_silver')">{{ playerGame.chartRank2 }}</span>
-                <span class="text-orange-400 font-medium" :title="$t('ranking.medals_bronze')">{{ playerGame.chartRank3 }}</span>
+                <span class="text-purple-300 font-medium" :title="$t('ranking.medals_platinum')">{{ playerGame.platinum }}</span>
+                <span class="text-yellow-400 font-medium" :title="$t('ranking.medals_gold')">{{ playerGame.gold }}</span>
+                <span class="text-gray-400 font-medium" :title="$t('ranking.medals_silver')">{{ playerGame.silver }}</span>
+                <span class="text-orange-400 font-medium" :title="$t('ranking.medals_bronze')">{{ playerGame.bronze }}</span>
                 <span class="opacity-60">/{{ playerGame.nbChart }}</span>
               </div>
-            </div>
-            
-            <!-- Last Update - Hidden on mobile -->
-            <div class="text-center text-sm opacity-80 hidden md:block">
-              {{ new Date(playerGame.lastUpdate).toLocaleDateString('fr-FR') }}
             </div>
           </div>
         </div>

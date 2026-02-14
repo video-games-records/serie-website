@@ -76,46 +76,46 @@
         
         <!-- Table Body -->
         <div>
-          <div 
-            v-for="playerSerie in leaderboard" 
+          <div
+            v-for="playerSerie in leaderboard"
             :key="playerSerie.player.id"
             class="border-b border-gray-600 hover:bg-gray-700 hover:bg-opacity-30 transition-colors"
             :class="{
-              'bg-yellow-500 bg-opacity-20': playerSerie.rankPointChart === 1,
-              'bg-gray-400 bg-opacity-20': playerSerie.rankPointChart === 2,
-              'bg-amber-600 bg-opacity-20': playerSerie.rankPointChart === 3
+              'bg-yellow-500 bg-opacity-20': playerSerie.rank === 1,
+              'bg-gray-400 bg-opacity-20': playerSerie.rank === 2,
+              'bg-amber-600 bg-opacity-20': playerSerie.rank === 3
             }"
           >
             <div class="grid grid-cols-3 md:grid-cols-5 gap-1 md:gap-4 px-1 py-2 md:p-4 items-center">
               <!-- Rank -->
               <div class="text-center">
                 <span
-                  class="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full text-xs md:text-sm font-bold" 
+                  class="inline-flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full text-xs md:text-sm font-bold"
                   :class="{
-                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerSerie.rankPointChart === 1,
-                    'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerSerie.rankPointChart === 2,
-                    'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': playerSerie.rankPointChart === 3,
-                    'bg-gray-100 text-gray-700': playerSerie.rankPointChart > 3
+                    'bg-gradient-to-b from-yellow-300 to-yellow-500 text-yellow-900': playerSerie.rank === 1,
+                    'bg-gradient-to-b from-gray-200 to-gray-400 text-gray-800': playerSerie.rank === 2,
+                    'bg-gradient-to-b from-amber-500 to-amber-700 text-amber-100': playerSerie.rank === 3,
+                    'bg-gray-100 text-gray-700': playerSerie.rank > 3
                   }">
-                  {{ playerSerie.rankPointChart }}
+                  {{ playerSerie.rank }}
                 </span>
               </div>
-              
+
               <!-- Player -->
               <div class="flex items-center min-w-0 pl-1">
                 <PlayerLink :player="playerSerie.player" class="truncate" />
               </div>
-              
+
               <!-- Points -->
               <div class="text-center font-mono font-bold text-xs md:text-base">
                 {{ playerSerie.pointChart.toLocaleString() }}
               </div>
-              
+
               <!-- Charts - Hidden on mobile -->
               <div class="text-center hidden md:block">
                 <span class="font-medium">{{ playerSerie.nbChart }}</span>
               </div>
-              
+
               <!-- Proven - Hidden on mobile -->
               <div class="text-center hidden md:block">
                 <span class="font-medium">{{ playerSerie.nbChartProven }}</span>
