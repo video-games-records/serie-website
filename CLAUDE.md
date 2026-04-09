@@ -72,7 +72,7 @@ assets/
 ### API Configuration
 - **Base URL**: Set via `API_BASE_URL` environment variable
 - **Default**: `http://backoffice.vgr.local/api`
-- **Images**: `/game/{id}/picture` (without /api prefix)
+- **Images**: `game.picture` is an absolute URL returned directly by the API
 
 ### Aliases
 - `@stores/` → `./stores`

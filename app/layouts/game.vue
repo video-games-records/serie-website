@@ -14,8 +14,8 @@
         <div class="card p-6">
           <div class="flex flex-col md:flex-row gap-6">
             <div v-if="game.picture" class="flex-shrink-0">
-              <img 
-                :src="getGameImageUrl(game.id)" 
+              <img
+                :src="game.picture"
                 :alt="game.name"
                 class="w-full md:w-64 object-contain rounded-lg"
               >
@@ -108,13 +108,6 @@ const formatDate = (dateString: string) => {
     month: 'long',
     day: 'numeric'
   })
-}
-
-// Helper function to get game image URL
-const getGameImageUrl = (gameId: number) => {
-  const config = useRuntimeConfig()
-  const baseUrl = config?.public?.apiBaseUrl || 'http://backoffice.vgr.local/api'
-  return `${baseUrl.replace('/api', '')}/game/${gameId}/picture`
 }
 
 // SEO géré par chaque page individuellement
