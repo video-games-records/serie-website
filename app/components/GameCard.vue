@@ -3,7 +3,7 @@
     <div class="card p-6 hover:shadow-lg transition-shadow hover:scale-105">
     <div class="mb-4 flex justify-center">
       <img 
-        :src="gameImageUrl" 
+        :src="game.picture"
         :alt="game.name || game.libGame"
         class="w-full max-w-[198px] h-[100px] object-cover rounded-lg"
         @error="onImageError"
@@ -49,12 +49,7 @@ interface Props {
   game: Game
 }
 
-const props = defineProps<Props>()
-const config = useRuntimeConfig()
-
-const gameImageUrl = computed(() => {
-  return `${config.public.apiBaseUrl.replace('/api', '')}/game/${props.game.id}/picture`
-})
+defineProps<Props>()
 
 const onImageError = (event: Event) => {
   const target = event.target as HTMLElement
