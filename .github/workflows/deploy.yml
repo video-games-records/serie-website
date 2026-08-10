@@ -51,4 +51,4 @@ jobs:
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/
           ssh -p ${{ secrets.SSH_PORT }} -o ServerAliveInterval=60 -o ServerAliveCountMax=10 \
             ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-            "source ~/.nvm/nvm.sh && cd ${{ secrets.DEPLOY_PATH }} && npm ci --omit=dev && (pm2 restart vgr-serie || pm2 start ecosystem.config.cjs)"
+            "cd ${{ secrets.DEPLOY_PATH }} && npm ci --omit=dev && (pm2 restart vgr-serie || pm2 start ecosystem.config.cjs)"
